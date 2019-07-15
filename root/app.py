@@ -1,14 +1,33 @@
-# creating Flask instance variable app
+from flask import Flask, render_template, url_for, jsonify
+import pandas as pd
+import json
+import os
+from sqlalchemy import create_engine
 
-from flask import Flask
 
 app = Flask(__name__)
+engine = create_engine('sqlite:///data/data_pro.db')
 
-@app.route('/')
+
+@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
 def index():
-    return 'it works!'
+    # df = pd.read_sql_table('chuheyihao_performance', con=engine, schema='main')
+    # df1 = df[['unit_value', 'unit_value_change']]
+    # df1.index = df.date
+    return render_template('index.html')
 
 
-@app.route('/<name>')
-def hello(name):
-    return 'it works! {0}'.format(name)
+@app.route('/performance/chuheyihao', methods=['GET'])
+def product_performance():
+    df = pd.read_sql_table('chuheyihao_performance', con=engine, schema='main')
+    df1 = df[['unit_value', 'unit_value_change']]
+    df1.index = df.date
+    return jsonify(json.loads(df1.to_json()))
+
+
+if __name__ == '__main__':
+    # app.debug = True
+    port = int(os.environ.get('PORT', 8000))
+    app.run(host='', port=port)
+
