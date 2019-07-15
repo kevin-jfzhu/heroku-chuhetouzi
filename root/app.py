@@ -1,7 +1,6 @@
 from flask import Flask, render_template, url_for, jsonify
 import pandas as pd
 import json
-import os
 from sqlalchemy import create_engine
 
 
@@ -24,10 +23,4 @@ def product_performance():
     df1 = df[['unit_value', 'unit_value_change']]
     df1.index = df.date
     return jsonify(json.loads(df1.to_json()))
-
-
-if __name__ == '__main__':
-    # app.debug = True
-    port = int(os.environ.get('PORT', 8000))
-    app.run(host='', port=port)
 
