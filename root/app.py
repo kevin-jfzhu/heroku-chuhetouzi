@@ -67,8 +67,9 @@ def strategies():
 
 @app.route('/api/v1/performance/<string:product_name>', methods=['GET'])
 def check_product_performance(product_name):
-    df1 = [random.randint(1, 10) for x in range(6)]
-    return jsonify(df1)
+    dates = [('2019-' + str(x)) for x in range(300)]
+    unit_values = [random.randint(1, 100) for x in range(300)]
+    return jsonify({'dates': dates, 'unit_values': unit_values})
 
 
 @app.route('/api/v1/performance/<string:product_name>/update', methods=['POST'])

@@ -8393,6 +8393,10 @@ button.bg-dark:focus {
   height: 75% !important;
 }
 
+.h-90 {
+  height: 90% !important;
+}
+
 .h-100 {
   height: 100% !important;
 }
@@ -11606,7 +11610,7 @@ a:focus {
 
 .chart-area {
   position: relative;
-  height: 10rem;
+  height: 20rem;
   width: 100%;
 }
 

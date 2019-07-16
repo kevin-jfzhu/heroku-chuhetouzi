@@ -10,14 +10,14 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Charts</title>
+  <title>储贺投资 - 管理后台</title>
 
   <!-- Custom fonts for this template-->
   <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="static/css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -30,11 +30,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Chuhe Admin</div>
+        <div class="sidebar-brand-text mx-3">储贺投资</div>
       </a>
 
       <!-- Divider -->
@@ -44,29 +44,24 @@
       <li class="nav-item active">
         <a class="nav-link" href="dashboard.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>管理后台</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
       <!-- Nav Item - Products -->
       <li class="nav-item">
         <a class="nav-link" href="products.html">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Products</span></a>
+          <span>产品数据</span></a>
       </li>
 
       <!-- Nav Item - Strategies -->
       <li class="nav-item">
         <a class="nav-link" href="strategies.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Strategies</span></a>
+          <span>策略数据</span></a>
       </li>
 
       <!-- Divider -->
@@ -239,8 +234,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">管理员</span>
+                <img class="img-profile rounded-circle" src="https://img.icons8.com/wired/2x/admin-settings-male.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -273,61 +268,44 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-          <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme. The charts below have been customized - for further customization options, please visit the <a target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">合规提示</h1>
+          <p class="mb-4">本人承诺符合如下特定合格投资者条件：根据《私募投资基金募集行为管理办法》之规定，排排网只对具有相应风险识别能力和风险承担能力，投资于单只私募基金的金额不低于100万元，且个人资产不低于300万元或者最近三年个人年均收入不低于50万元的特定投资者宣传、推介相关私募基金产品。</p>
 
           <!-- Content Row -->
           <div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12">
 
               <!-- Area Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">储贺一号</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                  <div class="chart-area" style="height: 450px">
+                    <canvas id="储贺1号"></canvas>
                   </div>
                   <hr>
-                  Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
+                  特别声明：XXXXXXXXXXXXXXXXXXXXX
                 </div>
               </div>
 
-              <!-- Bar Chart -->
+              <!-- Area Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">储贺量化一号</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myBarChart"></canvas>
+                  <div class="chart-area" style="height: 450px">
+                    <canvas id="储贺量化1号"></canvas>
                   </div>
                   <hr>
-                  Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
+                  特别声明：XXXXXXXXXXXXXXXXXXXXX
                 </div>
               </div>
 
             </div>
 
-            <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-                  Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
-                </div>
-              </div>
-            </div>
           </div>
 
         </div>
@@ -340,7 +318,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; 上海储贺投资管理有限公司 2019</span>
           </div>
         </div>
       </footer>
@@ -377,7 +355,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/jquery/jquery.js"></script>
   <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -390,7 +368,7 @@
   <script src="static/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="static/js/demo/chart-area-demo.js"></script>
+  <script src="static/js/demo/chart-area-chuhe.js"></script>
   <script src="static/js/demo/chart-pie-demo.js"></script>
   <script src="static/js/demo/chart-bar-demo.js"></script>
 
