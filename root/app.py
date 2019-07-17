@@ -1,12 +1,15 @@
 from flask import Flask, render_template, url_for, jsonify, redirect
-import pandas as pd
+from flask_sqlalchemy import SQLAlchemy
+import psycopg2 as pg2
 import json
 import random
 from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
-# engine = create_engine('sqlite:///data/data_pro.db')
+
+URI = 'postgres://iwohtdhwpoltbw:9d89fa1849631e5a2be1adeadb77bfca08299e8ef168f7daf34eabcb771fcf82@ec2-174-129-227-146.compute-1.amazonaws.com:5432/d1f2cf1peoef92'
+conn = pg2.connect(URI, sslmode='require')
 
 
 """---------------------------------  Pages & Router Definition ---------------------------------"""
@@ -67,9 +70,15 @@ def strategies():
 
 @app.route('/api/v1/performance/<string:product_name>', methods=['GET'])
 def check_product_performance(product_name):
-    dates = [('2019-' + str(x)) for x in range(300)]
-    unit_values = [random.randint(1, 100) for x in range(300)]
-    return jsonify({'dates': dates, 'unit_values': unit_values})
+    cur = conn.cursor()
+    try:
+        tablename = 'product_performance_' + product_name
+        cur.execute("SELECT date, unit_value FROM {};".format(tablename))
+        results = cur.fetchall()
+        return jsonify({'success_code': 1, 'result_data': results})
+    except Exception as e:
+        cur.execute("rollback")
+        return jsonify({'success_code': 0, 'result_data': [str(e)]})
 
 
 @app.route('/api/v1/performance/<string:product_name>/update', methods=['POST'])
