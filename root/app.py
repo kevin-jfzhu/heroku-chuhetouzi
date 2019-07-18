@@ -3,11 +3,14 @@ import pandas as pd
 import json
 import random
 from sqlalchemy import create_engine
+import os
+import psycopg2 as pg2
 
 
 app = Flask(__name__)
-# engine = create_engine('sqlite:///data/data_pro.db')
 
+DATABASE_URL = os.environ.get('database_url')
+conn = pg2.connect(DATABASE_URL, sslmode='require')
 
 """---------------------------------  Pages & Router Definition ---------------------------------"""
 
@@ -67,9 +70,24 @@ def strategies():
 
 @app.route('/api/v1/performance/<string:product_name>', methods=['GET'])
 def check_product_performance(product_name):
-    dates = [('2019-' + str(x)) for x in range(300)]
-    unit_values = [random.randint(1, 100) for x in range(300)]
-    return jsonify({'dates': dates, 'unit_values': unit_values})
+    cursor = conn.cursor()
+    query = 'SELECT date, unit_value FROM product_performance_{} ORDER BY date;'.format(product_name)
+    success_code = 0
+    dates = []
+    unit_values = []
+    try:
+        cursor.execute(query)
+        for row in cursor.fetchall():
+            dates.append(row[0])
+            unit_values.append(row[1])
+        success_code = 1
+    except Exception as e:
+        print('Error: ', e)
+        cursor.execute('rollback')
+    finally:
+        return jsonify({'success_code': success_code,
+                        'dates': dates,
+                        'unit_values': unit_values})
 
 
 @app.route('/api/v1/performance/<string:product_name>/update', methods=['POST'])
