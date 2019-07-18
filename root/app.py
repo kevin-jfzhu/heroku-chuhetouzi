@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, jsonify, redirect
-import pandas as pd
+from flask_sqlalchemy import SQLAlchemy
+import psycopg2 as pg2
 import json
 import random
 from sqlalchemy import create_engine
@@ -8,9 +9,8 @@ import psycopg2 as pg2
 
 
 app = Flask(__name__)
+conn = pg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
 
-# DATABASE_URL = os.environ.get('database_url')
-conn = pg2.connect(DATABASE_URL, sslmode='require')
 
 """---------------------------------  Pages & Router Definition ---------------------------------"""
 
