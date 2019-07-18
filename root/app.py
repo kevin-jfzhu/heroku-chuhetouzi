@@ -78,7 +78,7 @@ def check_product_performance(product_name):
     try:
         cursor.execute(query)
         for row in cursor.fetchall():
-            dates.append(row[0])
+            dates.append(row[0].strftime('%Y-%m-%d'))
             unit_values.append(row[1])
         success_code = 1
     except Exception as e:

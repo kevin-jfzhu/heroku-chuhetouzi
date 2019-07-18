@@ -27,20 +27,26 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+var ctx_p1;
+var prod_Chart1;
+var dates;
+var unit_values;
 
-$.getJSON('/api/v1/performance/chuhetouzi').done(function(res){
-    // Area Chart Example
-  var ctx_p1 = document.getElementById("储贺1号");
-  var prod_Chart1 = new Chart(ctx_p1, {
+$.getJSON('/api/v1/performance/chuheyihao').done(function(res) {
+  // Area Chart Example
+  dates = res.dates;
+  unit_values = res.unit_values;
+  ctx_p1 = document.getElementById("储贺1号");
+  prod_Chart1 = new Chart(ctx_p1, {
     type: 'line',
     data: {
-      labels: res.dates,
+      labels: dates,
       datasets: [{
         label: "收盘净值",
         lineTension: 0.3,
         backgroundColor: "rgba(78, 115, 223, 0.05)",
         borderColor: "rgba(78, 115, 223, 1)",
-        pointRadius: 3,
+        pointRadius: 2,
         pointBackgroundColor: "rgba(78, 115, 223, 1)",
         pointBorderColor: "rgba(78, 115, 223, 1)",
         pointHoverRadius: 3,
@@ -48,7 +54,7 @@ $.getJSON('/api/v1/performance/chuhetouzi').done(function(res){
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: res.unit_values,
+        data: unit_values,
       }],
     },
     options: {
@@ -76,10 +82,11 @@ $.getJSON('/api/v1/performance/chuhetouzi').done(function(res){
         }],
         yAxes: [{
           ticks: {
+            fixedStepSize: 0.05,
             maxTicksLimit: 5,
             padding: 10,
             // Include a dollar sign in the ticks
-            callback: function(value, index, values) {
+            callback: function (value, index, values) {
               return number_format(value);
             }
           },
@@ -110,7 +117,7 @@ $.getJSON('/api/v1/performance/chuhetouzi').done(function(res){
         mode: 'index',
         caretPadding: 10,
         callbacks: {
-          label: function(tooltipItem, chart) {
+          label: function (tooltipItem, chart) {
             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
             return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
           }
@@ -118,7 +125,10 @@ $.getJSON('/api/v1/performance/chuhetouzi').done(function(res){
       }
     }
   });
+});
 
+
+$.getJSON('/api/v1/performance/lianghuayihao').done(function(res) {
   var ctx_p2 = document.getElementById("储贺量化1号");
   var prod_Chart1 = new Chart(ctx_p2, {
     type: 'line',
