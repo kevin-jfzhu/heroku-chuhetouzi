@@ -9,7 +9,7 @@ import psycopg2 as pg2
 
 app = Flask(__name__)
 
-DATABASE_URL = os.environ.get('database_url')
+# DATABASE_URL = os.environ.get('database_url')
 conn = pg2.connect(DATABASE_URL, sslmode='require')
 
 """---------------------------------  Pages & Router Definition ---------------------------------"""
