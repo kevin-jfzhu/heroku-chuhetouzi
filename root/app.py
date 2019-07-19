@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, jsonify, redirect
+from flask import Flask, render_template, url_for, jsonify, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2 as pg2
 import json
@@ -6,6 +6,7 @@ import random
 from sqlalchemy import create_engine
 import os
 import psycopg2 as pg2
+import requests
 
 
 app = Flask(__name__)
@@ -85,6 +86,7 @@ def check_product_performance(product_name):
         print('Error: ', e)
         cursor.execute('rollback')
     finally:
+        cursor.close()
         return jsonify({'success_code': success_code,
                         'dates': dates,
                         'unit_values': unit_values})
@@ -93,5 +95,7 @@ def check_product_performance(product_name):
 @app.route('/api/v1/performance/<string:product_name>/update', methods=['POST'])
 def update_product_performance(product_name):
     print('The user has updated the product: {}'.format(product_name))
-    return redirect('/performance/{}'.format(product_name))
+    print(request.headers)
+    print(request.get_json())
+    return redirect('/')
 
