@@ -1,4 +1,5 @@
 from root import *
+from flask import request
 
 
 """---------------------------------  Interactive API Definition ---------------------------------"""
@@ -29,4 +30,5 @@ def check_product_performance(product_name):
 @app.route('/api/v1/performance/<string:product_name>/update', methods=['POST'])
 def update_product_performance(product_name):
     print('The user has updated the product: {}'.format(product_name))
-    return redirect('/performance/{}'.format(product_name))
+    print(request.get_data())
+    return redirect('/api/v1/performance/{}'.format(product_name))
