@@ -31,8 +31,7 @@ class ProductPerformance(Base):
 
 """                 Init the database               """
 
-engine = create_engine('postgresql+psycopg2://kevinzhu:Mcgrady1@localhost:5432/mydb')
-conn = pg2.connect('postgresql://kevinzhu:Mcgrady1@localhost:5432/mydb')
+engine = create_engine(os.environ.get('DATABASE_URL').replace('postgres', 'postgresql+psycopg2'))
 
 Base.metadata.create_all(engine)
 
