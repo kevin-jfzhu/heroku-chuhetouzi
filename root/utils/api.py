@@ -95,22 +95,26 @@ def check_daxiaopan_performance(subclass_name):
     try:
         results = session.query(DaXiaoPan)\
                     .filter_by(subclass_name=subclass_name)\
+                    .filter(DaXiaoPan.date > '2016-01-01')\
                     .order_by(DaXiaoPan.date)\
                     .all()
-        for row in results:
-            r['dates'].append(row.date)
-            r['strategy_values'].append(row.strategy_value)
-            r['holding_shares'].append(row.holding_shares)
-            r['signal_directions'].append(row.signal_direction)
-            r['correct_directions'].append(row.correct_direction)
-            r['rolling_accuracies'].append(row.rolling_accuracy)
-            r['trailing_drawdowns'].append(row.trailing_drawdown)
-            r['note_of_important_events'].append(row.note_of_important_events)
+        if len(results) > 0:
+            start_point = results[0].strategy_value
+            for row in results:
+                r['dates'].append(row.date.strftime('%Y-%m-%d'))
+                r['strategy_values'].append(row.strategy_value / start_point)
+                r['holding_shares'].append(row.holding_shares)
+                r['signal_directions'].append(row.signal_direction)
+                r['correct_directions'].append(row.correct_direction)
+                r['rolling_accuracies'].append(row.rolling_accuracy)
+                r['trailing_drawdowns'].append(row.trailing_drawdown)
+                r['note_of_important_events'].append(row.note_of_important_events)
         success_code = 1
     except Exception as e:
         session.rollback()
         print('Error: ', e)
     finally:
+        print(r)
         return jsonify({'success_code': success_code,
                         'results': r})
 

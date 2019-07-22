@@ -8,19 +8,19 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
     data: {
       labels: dxp_data.dates,
       datasets: [{
-        label: "收盘净值",
+        label: "策略净值",
         lineTension: 0.3,
         backgroundColor: "rgba(78, 115, 223, 0.05)",
         borderColor: "rgba(78, 115, 223, 1)",
-        pointRadius: 2,
+        pointRadius: 1,
         pointBackgroundColor: "rgba(78, 115, 223, 1)",
         pointBorderColor: "rgba(78, 115, 223, 1)",
         pointHoverRadius: 3,
         pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
-        pointBorderWidth: 2,
-        data: dxp_data.performance_value,
+        pointBorderWidth: 1,
+        data: dxp_data.strategy_values,
       }],
     },
     options: {
@@ -29,9 +29,13 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
         padding: {
           left: 10,
           right: 25,
-          top: 25,
-          bottom: 0
+          top: 5,
+          bottom: 5
         }
+      },
+      title: {
+        display: true,
+        text: "策略净值"
       },
       scales: {
         xAxes: [{
@@ -43,14 +47,15 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
             drawBorder: false
           },
           ticks: {
+            display: false,
             maxTicksLimit: 10
           }
         }],
         yAxes: [{
           ticks: {
-            fixedStepSize: 0.05,
-            maxTicksLimit: 5,
-            padding: 10,
+            min: 0.5,
+            stepSize: 0.5,
+            precision: 1,
             // Include a dollar sign in the ticks
             callback: function (value, index, values) {
               return value;
@@ -97,11 +102,11 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
     data: {
       labels: dxp_data.dates,
       datasets: [{
-        label: "收盘净值",
+        label: "最大回撤",
         lineTension: 0.3,
         backgroundColor: "rgba(78, 115, 223, 0.05)",
         borderColor: "rgba(78, 115, 223, 1)",
-        pointRadius: 2,
+        pointRadius: 0,
         pointBackgroundColor: "rgba(78, 115, 223, 1)",
         pointBorderColor: "rgba(78, 115, 223, 1)",
         pointHoverRadius: 3,
@@ -109,7 +114,7 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: dxp_data.performance_value,
+        data: dxp_data.trailing_drawdowns,
       }],
     },
     options: {
@@ -118,9 +123,13 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
         padding: {
           left: 10,
           right: 25,
-          top: 25,
-          bottom: 0
+          top: 5,
+          bottom: 5
         }
+      },
+      title: {
+        display: true,
+        text: "最大回撤"
       },
       scales: {
         xAxes: [{
@@ -132,6 +141,7 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
             drawBorder: false
           },
           ticks: {
+            display: false,
             maxTicksLimit: 10
           }
         }],
@@ -186,11 +196,11 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
     data: {
       labels: dxp_data.dates,
       datasets: [{
-        label: "收盘净值",
+        label: "滚动正确率",
         lineTension: 0.3,
         backgroundColor: "rgba(78, 115, 223, 0.05)",
         borderColor: "rgba(78, 115, 223, 1)",
-        pointRadius: 2,
+        pointRadius: 0,
         pointBackgroundColor: "rgba(78, 115, 223, 1)",
         pointBorderColor: "rgba(78, 115, 223, 1)",
         pointHoverRadius: 3,
@@ -198,7 +208,7 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: dxp_data.performance_value,
+        data: dxp_data.rolling_accuracies,
       }],
     },
     options: {
@@ -207,9 +217,13 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
         padding: {
           left: 10,
           right: 25,
-          top: 25,
-          bottom: 0
+          top: 5,
+          bottom: 5
         }
+      },
+      title: {
+        display: true,
+        text: "滚动正确率"
       },
       scales: {
         xAxes: [{
@@ -221,18 +235,18 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
             drawBorder: false
           },
           ticks: {
-            maxTicksLimit: 10
+            display: true,
+            maxTicksLimit: 11
           }
         }],
         yAxes: [{
           ticks: {
-            fixedStepSize: 0.05,
-            maxTicksLimit: 5,
-            padding: 10,
+            min: 0.2,
+            max: 0.8,
             // Include a dollar sign in the ticks
-            callback: function (value, index, values) {
-              return value;
-            }
+            //callback: function (value, index, values) {
+            //  return value;
+            //}
           },
           gridLines: {
             color: "rgb(234, 236, 244)",
@@ -275,8 +289,9 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
 }
 
 
-$.getJSON('/api/v1/performance/strategy/daxiaopan-kuai').done(function(res) {
+$.getJSON('/api/v1/strategy/dxp/fast').done(function(res) {
   let dxp_performance_data = res.results;
+  console.log(dxp_performance_data);
   var ctx_performance_dxp_kuai = document.getElementById("大小盘-复合-净值");
   var ctx_drawdown_dxp_kuai = document.getElementById("大小盘-复合-回撤");
   var ctx_correctness_dxp_kuai = document.getElementById("大小盘-复合-正确率");
