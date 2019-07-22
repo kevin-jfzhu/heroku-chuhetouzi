@@ -29,9 +29,27 @@ class ProductPerformance(Base):
         return str(self.__dict__)
 
 
+class DaXiaoPan(Base):
+    __tablename__ = 'strategy_daxiaopan'
+
+    last_updated_time = Column(BigInteger, primary_key=True)
+    subclass_name = Column(String, nullable=False)
+    date = Column(Date, nullable=False)
+    strategy_value = Column(Float, nullable=False)
+    holding_shares = Column(Integer, nullable=True)
+    signal_direction = Column(Integer, nullable=False)
+    correct_direction = Column(Integer, nullable=True)
+    rolling_accuracy = Column(Float, nullable=False)
+    trailing_drawdown = Column(Float, nullable=False)
+    note_of_important_events = Column(String, nullable=True)
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
 """                 Init the database               """
 
-engine = create_engine(os.environ.get('DATABASE_URL').replace('postgres', 'postgresql+psycopg2'))
+engine = create_engine(os.environ.get('DATABASE_URL').replace('postgres', 'postgresql+psycopg2')+'?sslmode=require')
 
 Base.metadata.create_all(engine)
 
