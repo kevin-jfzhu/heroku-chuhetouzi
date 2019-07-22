@@ -96,7 +96,7 @@ function generate_product_performance(dates, unit_values, ctx) {
 }
 
 
-$.getJSON('/api/v1/performance/chuheyihao').done(function(res) {
+$.getJSON('/api/v1/performance/product/chuheyihao').done(function(res) {
   let dates = res.dates;
   let unit_values = res.unit_values;
   var ctx_p1 = document.getElementById("储贺1号");
@@ -104,7 +104,7 @@ $.getJSON('/api/v1/performance/chuheyihao').done(function(res) {
 });
 
 
-$.getJSON('/api/v1/performance/lianghuayihao').done(function(res) {
+$.getJSON('/api/v1/performance/product/lianghuayihao').done(function(res) {
   let dates = res.dates;
   let unit_values = res.unit_values;
   var ctx_p2 = document.getElementById("储贺量化1号");

@@ -11,7 +11,6 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/', methods=['GET'])
 @app.route('/dashboard', methods=['GET'])
 @app.route('/dashboard.html', methods=['GET'])
 def dashbaord():
@@ -42,6 +41,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
+@app.route('/', methods=['GET'])
 @app.route('/products', methods=['GET'])
 @app.route('/products.html', methods=['GET'])
 def products():

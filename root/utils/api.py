@@ -7,7 +7,7 @@ import calendar, time, datetime
 """---------------------------------  Interactive API Definition ---------------------------------"""
 
 
-@app.route('/api/v1/performance/<string:product_name>', methods=['GET'])
+@app.route('/api/v1/performance/product/<string:product_name>', methods=['GET'])
 def check_product_performance(product_name):
     success_code = 0
     dates = []
@@ -72,72 +72,5 @@ def update_product_performance():
         raise ValueError('Cannot update data, since: ', e)
 
     finally:
-        return redirect('/api/v1/performance/{}'.format(data.get('product_name')))
+        return redirect('/api/v1/performance/product/{}'.format(data.get('product_name')))
 
-
-'''
-@app.route('/api/v1/performance/<string:product_name>/update', methods=['POST'])
-def update_product_performance(product_name):
-    print('The user has updated the product: {}'.format(product_name))
-    try:
-        data = request.get_json()
-        if data.get('date') is not None:
-            search_date = data.get('date')
-            cursor = conn.cursor()
-            query = "SELECT date FROM product_performance_{} WHERE date = '{}';".format(product_name, str(search_date))
-            cursor.execute(query)
-            results = cursor.fetchall()
-            cursor.execute('rollback')
-
-            # If the record in the given day doesn't exist, then insert a new records with the value
-            if len(results) == 0:
-                query = """
-                        INSERT INTO product_performance_{}
-                            (date, unit_value, asset_value, shares, unit_value_change,
-                            asset_value_change, note_of_important_events)
-                        VALUES
-                            ('{}', {}, {}, {}, {}, {}, '{}');
-                        """.format(
-                                product_name,
-                                data.get('date'),
-                                data.get('unit_value'),
-                                data.get('asset_value'),
-                                data.get('shares'),
-                                data.get('unit_value_change'),
-                                data.get('asset_value_change'),
-                                data.get('note_of_important_events'),
-                            )
-                print('Data has been inserted as: ' + str(data))
-                cursor.execute(query)
-
-            # If the record in the given day exists, then update the records with the new value
-            elif len(results) > 0:
-                query = """
-                        UPDATE product_performance_{}
-                            SET
-                                unit_value = {},
-                                asset_value = {},
-                                shares = {},
-                                unit_value_change = {},
-                                asset_value_change = {},
-                                note_of_important_events = '{}'
-                            WHERE date = '{}';
-                        """.format(product_name,
-                                   data.get('unit_value'),
-                                   data.get('asset_value'),
-                                   data.get('shares'),
-                                   data.get('unit_value_change'),
-                                   data.get('asset_value_change'),
-                                   data.get('note_of_important_events'),
-                                   data.get('date'))
-                cursor.execute(query)
-                print('Data has been updated as: ' + str(data))
-
-            cursor.close()
-
-    except Exception as e:
-        raise ValueError('Cannot update data, since: ', e)
-
-    finally:
-        return redirect('/api/v1/performance/{}'.format(product_name))
-'''
