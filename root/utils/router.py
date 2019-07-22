@@ -1,4 +1,4 @@
-from root import *
+from root.utils import app, render_template
 
 
 """---------------------------------  Pages & Router Definition ---------------------------------"""

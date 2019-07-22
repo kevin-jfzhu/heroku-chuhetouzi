@@ -1,24 +1,40 @@
 import sys
 import os
-from sqlalchemy import Column, ForeignKey, Integer, String, Date
+import psycopg2 as pg2
+from sqlalchemy import Table, Column, ForeignKey, Integer, String, Date, Float, BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
 """                Header ends here                 """
 
 
-class Restaurant(Base):
-    __tablename__ = 'chuheyihao'
+class ProductPerformance(Base):
+    __tablename__ = 'product_performance_in_all'
 
-    name = Column(String(80), nullable=False)
-    id = Column(Date, primary_key=True)
+    last_updated_time = Column(BigInteger, primary_key=True)
+    product_name = Column(String, nullable=False)
+    date = Column(Date, nullable=False)
+    unit_value = Column(Float, nullable=False)
+    asset_value = Column(Float, nullable=False)
+    unit_value_change = Column(Float, nullable=True)
+    asset_value_change = Column(Float, nullable=True)
+    shares = Column(Float, nullable=True)
+    note_of_important_events = Column(String, nullable=True)
+
+    def __repr__(self):
+        return str(self.__dict__)
 
 
 """                 Init the database               """
 
-engine = create_engine('sqlite:///restaurant_menu.db')
+engine = create_engine('postgresql+psycopg2://kevinzhu:Mcgrady1@localhost:5432/mydb')
+conn = pg2.connect('postgresql://kevinzhu:Mcgrady1@localhost:5432/mydb')
 
 Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()

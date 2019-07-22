@@ -8,5 +8,9 @@ import os
 import psycopg2 as pg2
 
 
+
 app = Flask(__name__)
-conn = pg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+LOCAL_DB = 'postgresql://kevinzhu:Mcgrady1@127.0.0.1:5432/mydb'
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+conn = pg2.connect(LOCAL_DB)

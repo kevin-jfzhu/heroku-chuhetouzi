@@ -1,7 +1,7 @@
 # run server localy
 
 # import variable app from root/app.py file
-from root.app import app
+from root.app import *
 
 
 if __name__ == '__main__':
