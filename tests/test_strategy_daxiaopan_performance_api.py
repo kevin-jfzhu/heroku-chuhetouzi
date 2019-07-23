@@ -10,7 +10,7 @@ def post_dxp_performance_data(daily_performance_data, to_localhost=False):
     else:
         domain = 'http://chuhetouzi.herokuapp.com'
 
-    post_uri = domain + '/api/v1/strategy/dxp/update'
+    post_uri = domain + '/api/v1/strategy/update'
     try:
         r = requests.post(post_uri, json=daily_performance_data)
         if r.status_code != 200:
@@ -22,7 +22,7 @@ def post_dxp_performance_data(daily_performance_data, to_localhost=False):
         print(e)
 
 
-def import_dxp_performance_data_from_csv(csvfilename, encoding='utf-8'):
+def import_strategy_performance_data_from_csv(csvfilename, encoding='utf-8'):
     results = []
     with open(csvfilename, 'r+', encoding=encoding, newline='') as f:
         reader = csv.DictReader(f)
@@ -39,7 +39,7 @@ def import_dxp_performance_data_from_csv(csvfilename, encoding='utf-8'):
                 'note_of_important_events': ''  # If needed
             }
             post_dxp_performance_data(data, to_localhost=True)
-            time.sleep(0.2)
+            time.sleep(0.5)
 
 
 if __name__ == '__main__':

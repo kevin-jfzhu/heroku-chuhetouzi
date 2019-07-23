@@ -29,8 +29,8 @@ class ProductPerformance(Base):
         return str(self.__dict__)
 
 
-class DaXiaoPan(Base):
-    __tablename__ = 'strategy_daxiaopan'
+class StrategyPerformance(Base):
+    __tablename__ = 'strategy_performance'
 
     last_updated_time = Column(BigInteger, primary_key=True)
     subclass_name = Column(String, nullable=False)

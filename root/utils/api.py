@@ -76,12 +76,12 @@ def update_product_performance():
         return "Product performance data has been updated."
 
 
-# 大小盘策略相关API
-@app.route('/api/v1/strategy/dxp/<string:subclass_name>', methods=['GET'])
-def check_daxiaopan_performance(subclass_name):
+# 策略相关API
+@app.route('/api/v1/strategy/<string:subclass_name>', methods=['GET'])
+def check_strategy_performance(subclass_name):
     success_code = 0
     r = {
-        'strategy_name': 'daxiaopan',
+        'strategy_name': subclass_name.split('_')[0],
         'subclass_name': subclass_name,
         'dates': [],
         'strategy_values': [],
@@ -93,54 +93,53 @@ def check_daxiaopan_performance(subclass_name):
         'note_of_important_events': []
     }
     try:
-        results = session.query(DaXiaoPan)\
+        results = session.query(StrategyPerformance)\
                     .filter_by(subclass_name=subclass_name)\
-                    .filter(DaXiaoPan.date > '2016-01-01')\
-                    .order_by(DaXiaoPan.date)\
+                    .filter(StrategyPerformance.date > '2016-01-01')\
+                    .order_by(StrategyPerformance.date)\
                     .all()
         if len(results) > 0:
             start_point = results[0].strategy_value
             for row in results:
                 r['dates'].append(row.date.strftime('%Y-%m-%d'))
-                r['strategy_values'].append(row.strategy_value / start_point)
+                r['strategy_values'].append(round(row.strategy_value / start_point, 4))
                 r['holding_shares'].append(row.holding_shares)
                 r['signal_directions'].append(row.signal_direction)
                 r['correct_directions'].append(row.correct_direction)
                 r['rolling_accuracies'].append(row.rolling_accuracy)
-                r['trailing_drawdowns'].append(row.trailing_drawdown)
+                r['trailing_drawdowns'].append(round(row.trailing_drawdown, 4))
                 r['note_of_important_events'].append(row.note_of_important_events)
         success_code = 1
     except Exception as e:
         session.rollback()
         print('Error: ', e)
     finally:
-        print(r)
         return jsonify({'success_code': success_code,
                         'results': r})
 
 
-@app.route('/api/v1/strategy/dxp/update', methods=['POST'])
+@app.route('/api/v1/strategy/update', methods=['POST'])
 def update_daxiaopan_performance():
     try:
         data = request.get_json()
-        print('The user is requesting to update the daxiaopan-subclass: {}'.format(data.get('subclass_name')))
+        print('The user is requesting to update the performance data of strategy: {}'.format(data.get('subclass_name')))
         if data.get('date') is not None:
-            record = session.query(DaXiaoPan).\
+            record = session.query(StrategyPerformance).\
                                 filter_by(subclass_name=data.get('subclass_name'), date=data.get('date')).\
-                                order_by(DaXiaoPan.date).\
+                                order_by(StrategyPerformance.date).\
                                 first()
             if record is None:
-                sp = DaXiaoPan(last_updated_time=int(time.time()),
-                               date=data.get('date'),
-                               subclass_name=data.get('subclass_name'),
-                               strategy_value=data.get('strategy_value'),
-                               holding_shares=data.get('holding_shares'),
-                               signal_direction=data.get('signal_direction'),
-                               correct_direction=data.get('correct_direction'),
-                               rolling_accuracy=data.get('rolling_accuracy'),
-                               trailing_drawdown=data.get('trailing_drawdown'),
-                               note_of_important_events=data.get('note_of_important_events')
-                               )
+                sp = StrategyPerformance(last_updated_time=int(time.time()),
+                                         date=data.get('date'),
+                                         subclass_name=data.get('subclass_name'),
+                                         strategy_value=data.get('strategy_value'),
+                                         holding_shares=data.get('holding_shares'),
+                                         signal_direction=data.get('signal_direction'),
+                                         correct_direction=data.get('correct_direction'),
+                                         rolling_accuracy=data.get('rolling_accuracy'),
+                                         trailing_drawdown=data.get('trailing_drawdown'),
+                                         note_of_important_events=data.get('note_of_important_events')
+                                         )
                 session.add(sp)
                 session.commit()
                 print('Inserted the new data: ' + str(data))
@@ -163,4 +162,4 @@ def update_daxiaopan_performance():
         raise ValueError('Cannot update data, since: ' + e.__str__())
 
     finally:
-        return "DaXiaoPan strategy performance data has been updated."
+        return "Strategy performance data has been updated."

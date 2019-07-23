@@ -289,14 +289,38 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
 }
 
 
-$.getJSON('/api/v1/strategy/dxp/fast').done(function(res) {
-  let dxp_performance_data = res.results;
-  console.log(dxp_performance_data);
-  var ctx_performance_dxp_kuai = document.getElementById("大小盘-复合-净值");
-  var ctx_drawdown_dxp_kuai = document.getElementById("大小盘-复合-回撤");
-  var ctx_correctness_dxp_kuai = document.getElementById("大小盘-复合-正确率");
-  var charts_dxp_kuai = generate_daxiaopan_performance(dxp_performance_data, ctx_performance_dxp_kuai,
-                                                       ctx_drawdown_dxp_kuai, ctx_correctness_dxp_kuai);
+$.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_bs_overall = document.getElementById("大小盘-快复合-净值");
+  var ctx_drawdown_bs_overall = document.getElementById("大小盘-快复合-回撤");
+  var ctx_correctness_bs_overall = document.getElementById("大小盘-快复合-正确率");
+  var charts_bs_overall = generate_daxiaopan_performance(performance_data, ctx_performance_bs_overall,
+                                                          ctx_drawdown_bs_overall, ctx_correctness_bs_overall);
 });
 
+$.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_bs_fast = document.getElementById("大小盘-快-净值");
+  var ctx_drawdown_bs_fast = document.getElementById("大小盘-快-回撤");
+  var ctx_correctness_bs_fast = document.getElementById("大小盘-快-正确率");
+  var charts_bs_fast = generate_daxiaopan_performance(performance_data, ctx_performance_bs_fast,
+                                                       ctx_drawdown_bs_fast, ctx_correctness_bs_fast);
+});
 
+$.getJSON('/api/v1/strategy/bigsmall_ensemble').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_bs_ensemble = document.getElementById("大小盘-快集成-净值");
+  var ctx_drawdown_bs_ensemble = document.getElementById("大小盘-快集成-回撤");
+  var ctx_correctness_bs_ensemble = document.getElementById("大小盘-快集成-正确率");
+  var charts_bs_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_bs_ensemble,
+                                                          ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
+});
+
+$.getJSON('/api/v1/strategy/bigsmall_vol').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_bs_vol = document.getElementById("大小盘-快带量-净值");
+  var ctx_drawdown_bs_vol = document.getElementById("大小盘-快带量-回撤");
+  var ctx_correctness_bs_vol = document.getElementById("大小盘-快带量-正确率");
+  var charts_bs_vol = generate_daxiaopan_performance(performance_data, ctx_performance_bs_vol,
+                                                     ctx_drawdown_bs_vol, ctx_correctness_bs_vol);
+});
