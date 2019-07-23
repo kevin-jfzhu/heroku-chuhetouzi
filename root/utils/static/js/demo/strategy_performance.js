@@ -241,8 +241,8 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
         }],
         yAxes: [{
           ticks: {
-            min: 0.2,
-            max: 0.8,
+            min: 0.0,
+            max: 1.0,
             // Include a dollar sign in the ticks
             //callback: function (value, index, values) {
             //  return value;
@@ -291,15 +291,6 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
 
 $.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_bs_overall = document.getElementById("大小盘-快复合-净值");
-  var ctx_drawdown_bs_overall = document.getElementById("大小盘-快复合-回撤");
-  var ctx_correctness_bs_overall = document.getElementById("大小盘-快复合-正确率");
-  var charts_bs_overall = generate_daxiaopan_performance(performance_data, ctx_performance_bs_overall,
-                                                          ctx_drawdown_bs_overall, ctx_correctness_bs_overall);
-});
-
-$.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
-  let performance_data = res.results;
   var ctx_performance_bs_fast = document.getElementById("大小盘-快-净值");
   var ctx_drawdown_bs_fast = document.getElementById("大小盘-快-回撤");
   var ctx_correctness_bs_fast = document.getElementById("大小盘-快-正确率");
@@ -343,6 +334,24 @@ $.getJSON('/api/v1/strategy/index-timing_ensemble').done(function(res) {
                                                          ctx_drawdown_it_ensemble, ctx_correctness_it_ensemble);
 });
 
+
+$.getJSON('/api/v1/strategy/flow-sentim_high').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_fs_high = document.getElementById("资金情绪-高波-净值");
+  var ctx_drawdown_fs_high = document.getElementById("资金情绪-高波-回撤");
+  var ctx_correctness_fs_high = document.getElementById("资金情绪-高波-正确率");
+  var charts_fs_high = generate_daxiaopan_performance(performance_data, ctx_performance_fs_high,
+                                                     ctx_drawdown_fs_high, ctx_correctness_fs_high);
+});
+
+$.getJSON('/api/v1/strategy/flow-sentim_mid').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_fs_mid = document.getElementById("资金情绪-中波-净值");
+  var ctx_drawdown_fs_mid = document.getElementById("资金情绪-中波-回撤");
+  var ctx_correctness_fs_mid = document.getElementById("资金情绪-中波-正确率");
+  var charts_fs_mid = generate_daxiaopan_performance(performance_data, ctx_performance_fs_mid,
+                                                     ctx_drawdown_fs_mid, ctx_correctness_fs_mid);
+});
 
 $.getJSON('/api/v1/strategy/flow-sentim_low').done(function(res) {
   let performance_data = res.results;

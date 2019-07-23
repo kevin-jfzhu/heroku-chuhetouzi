@@ -93,9 +93,11 @@ def check_strategy_performance(subclass_name):
         'note_of_important_events': []
     }
     try:
+        today = datetime.datetime.today()
         results = session.query(StrategyPerformance)\
                     .filter_by(subclass_name=subclass_name)\
-                    .filter(StrategyPerformance.date > '2016-01-01')\
+                    .filter(StrategyPerformance.date >= '2016-01-01') \
+                    .filter(StrategyPerformance.date < today) \
                     .order_by(StrategyPerformance.date)\
                     .all()
         if len(results) > 0:
