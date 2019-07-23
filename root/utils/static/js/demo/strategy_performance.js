@@ -307,6 +307,15 @@ $.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
                                                        ctx_drawdown_bs_fast, ctx_correctness_bs_fast);
 });
 
+$.getJSON('/api/v1/strategy/bigsmall_vol').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_bs_vol = document.getElementById("大小盘-快带量-净值");
+  var ctx_drawdown_bs_vol = document.getElementById("大小盘-快带量-回撤");
+  var ctx_correctness_bs_vol = document.getElementById("大小盘-快带量-正确率");
+  var charts_bs_vol = generate_daxiaopan_performance(performance_data, ctx_performance_bs_vol,
+                                                     ctx_drawdown_bs_vol, ctx_correctness_bs_vol);
+});
+
 $.getJSON('/api/v1/strategy/bigsmall_ensemble').done(function(res) {
   let performance_data = res.results;
   var ctx_performance_bs_ensemble = document.getElementById("大小盘-快集成-净值");
@@ -316,11 +325,20 @@ $.getJSON('/api/v1/strategy/bigsmall_ensemble').done(function(res) {
                                                           ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
 });
 
-$.getJSON('/api/v1/strategy/bigsmall_vol').done(function(res) {
+$.getJSON('/api/v1/strategy/index-timing_general').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_bs_vol = document.getElementById("大小盘-快带量-净值");
-  var ctx_drawdown_bs_vol = document.getElementById("大小盘-快带量-回撤");
-  var ctx_correctness_bs_vol = document.getElementById("大小盘-快带量-正确率");
-  var charts_bs_vol = generate_daxiaopan_performance(performance_data, ctx_performance_bs_vol,
-                                                     ctx_drawdown_bs_vol, ctx_correctness_bs_vol);
+  var ctx_performance_it_general = document.getElementById("指数择时-净值");
+  var ctx_drawdown_it_general = document.getElementById("指数择时-回撤");
+  var ctx_correctness_it_general = document.getElementById("指数择时-正确率");
+  var charts_it_general = generate_daxiaopan_performance(performance_data, ctx_performance_it_general,
+                                                         ctx_drawdown_it_general, ctx_correctness_it_general);
+});
+
+$.getJSON('/api/v1/strategy/index-timing_ensemble').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_it_ensemble = document.getElementById("指数择时-集成-净值");
+  var ctx_drawdown_it_ensemble = document.getElementById("指数择时-集成-回撤");
+  var ctx_correctness_it_ensemble = document.getElementById("指数择时-集成-正确率");
+  var charts_it_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_it_ensemble,
+                                                         ctx_drawdown_it_ensemble, ctx_correctness_it_ensemble);
 });
