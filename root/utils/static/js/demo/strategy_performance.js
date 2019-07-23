@@ -342,3 +342,13 @@ $.getJSON('/api/v1/strategy/index-timing_ensemble').done(function(res) {
   var charts_it_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_it_ensemble,
                                                          ctx_drawdown_it_ensemble, ctx_correctness_it_ensemble);
 });
+
+
+$.getJSON('/api/v1/strategy/flow-sentim_low').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_fs_low = document.getElementById("资金情绪-低波-净值");
+  var ctx_drawdown_fs_low = document.getElementById("资金情绪-低波-回撤");
+  var ctx_correctness_fs_low = document.getElementById("资金情绪-低波-正确率");
+  var charts_fs_low = generate_daxiaopan_performance(performance_data, ctx_performance_fs_low,
+                                                     ctx_drawdown_fs_low, ctx_correctness_fs_low);
+});

@@ -30,16 +30,16 @@ def import_strategy_performance_data_from_csv(csvfilename, encoding='utf-8'):
             data = {
                 'date': row['date'],
                 'subclass_name': row['subclass_name'],
-                'strategy_value': row['strategy_value'],
-                'holding_shares': row['holding_shares'],
-                'signal_direction': row['signal_direction'],
-                'correct_direction': row['correct_direction'],
-                'rolling_accuracy': row['rolling_accuracy'],
-                'trailing_drawdown': row['trailing_drawdown'],
+                'strategy_value': float(row['strategy_value']) if row['strategy_value'] != '' else 0.0,
+                'holding_shares': float(row['holding_shares']) if row['holding_shares'] != '' else 0.0,
+                'signal_direction': int(row['signal_direction']) if row['signal_direction'] != '' else 0,
+                'correct_direction': int(row['correct_direction']) if row['correct_direction'] != '' else 0,
+                'rolling_accuracy': float(row['rolling_accuracy']) if row['rolling_accuracy'] != '' else 0.0,
+                'trailing_drawdown': float(row['trailing_drawdown']) if row['trailing_drawdown'] != '' else 0.0,
                 'note_of_important_events': ''  # If needed
             }
             post_dxp_performance_data(data, to_localhost=True)
-            time.sleep(0.5)
+            time.sleep(1)
 
 
 if __name__ == '__main__':
