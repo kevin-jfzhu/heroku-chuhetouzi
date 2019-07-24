@@ -370,3 +370,12 @@ $.getJSON('/api/v1/strategy/flow-sentim_low').done(function(res) {
   var charts_fs_low = generate_daxiaopan_performance(performance_data, ctx_performance_fs_low,
                                                      ctx_drawdown_fs_low, ctx_correctness_fs_low);
 });
+
+$.getJSON('/api/v1/strategy/pos-price_svm').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_pp_svm = document.getElementById("SVM量价-净值");
+  var ctx_drawdown_pp_svm = document.getElementById("SVM量价-回撤");
+  var ctx_correctness_pp_svm = document.getElementById("SVM量价-正确率");
+  var charts_pp_svm = generate_daxiaopan_performance(performance_data, ctx_performance_pp_svm,
+                                                     ctx_drawdown_pp_svm, ctx_correctness_pp_svm);
+});
