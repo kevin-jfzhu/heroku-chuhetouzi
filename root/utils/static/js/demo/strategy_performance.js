@@ -316,6 +316,15 @@ $.getJSON('/api/v1/strategy/bigsmall_ensemble').done(function(res) {
                                                           ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
 });
 
+$.getJSON('/api/v1/strategy/bigsmall_slow').done(function(res) {
+  let performance_data = res.results;
+  var ctx_performance_bs_slow = document.getElementById("大小盘-慢-净值");
+  var ctx_drawdown_bs_slow = document.getElementById("大小盘-慢-回撤");
+  var ctx_correctness_bs_slow = document.getElementById("大小盘-慢-正确率");
+  var charts_bs_slow = generate_daxiaopan_performance(performance_data, ctx_performance_bs_slow,
+                                                      ctx_drawdown_bs_slow, ctx_correctness_bs_slow);
+});
+
 $.getJSON('/api/v1/strategy/index-timing_general').done(function(res) {
   let performance_data = res.results;
   var ctx_performance_it_general = document.getElementById("指数择时-净值");
