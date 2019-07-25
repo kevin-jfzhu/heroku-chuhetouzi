@@ -13,13 +13,14 @@ Base = declarative_base()
 
 
 class ProductPerformance(Base):
-    __tablename__ = 'product_performance_in_all'
+    __tablename__ = 'product_performance'
 
-    last_updated_time = Column(BigInteger, primary_key=True)
-    product_name = Column(String, nullable=False)
-    date = Column(Date, nullable=False)
-    unit_value = Column(Float, nullable=False)
-    asset_value = Column(Float, nullable=False)
+    date = Column(Date, primary_key=True)
+    product_name = Column(String, primary_key=True)
+    last_updated_time = Column(BigInteger, nullable=False)
+
+    unit_value = Column(Float, nullable=True)
+    asset_value = Column(Float, nullable=True)
     unit_value_change = Column(Float, nullable=True)
     asset_value_change = Column(Float, nullable=True)
     shares = Column(Float, nullable=True)
@@ -32,9 +33,9 @@ class ProductPerformance(Base):
 class StrategyPerformance(Base):
     __tablename__ = 'strategy_performance'
 
-    last_updated_time = Column(BigInteger, primary_key=True)
-    subclass_name = Column(String, nullable=False)
-    date = Column(Date, nullable=False)
+    subclass_name = Column(String, primary_key=True)
+    date = Column(Date, primary_key=True)
+    last_updated_time = Column(BigInteger, nullable=False)
     strategy_value = Column(Float, nullable=True)
     holding_shares = Column(Float, nullable=True)
     signal_direction = Column(Integer, nullable=True)
@@ -49,9 +50,12 @@ class StrategyPerformance(Base):
 
 """                 Init the database               """
 
-engine = create_engine(os.environ.get('DATABASE_URL').replace('postgres', 'postgresql+psycopg2')+'?sslmode=require')
+LOCAL_DB = 'postgresql://kevinzhu:Mcgrady1@127.0.0.1:5432/mydb'
+DATABASE_URL = os.environ.get('DATABASE_URL')
+NEW_DB_URL = os.environ.get('HEROKU_POSTGRESQL_MAROON_URL')
 
+
+engine = create_engine(NEW_DB_URL.replace('postgres', 'postgresql+psycopg2')+'?sslmode=require')
 Base.metadata.create_all(engine)
-
 Session = sessionmaker(bind=engine)
 session = Session()

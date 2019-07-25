@@ -47,9 +47,9 @@ if __name__ == '__main__':
     # UPDATE DATA HERE
     data = {
         'date': '2015/4/15',
-        'subclass_name': 'fast',
+        'subclass_name': 'test',
         'strategy_value': 2800081.136,
-        'holding_shares': 0,
+        'holding_shares': 5,
         'signal_direction': 1,
         'correct_direction': -1,
         'rolling_accuracy': 0,
