@@ -14,6 +14,7 @@
 <style type="text/css">
   .footer {
           position: absolute;
+          z-index: -9999;
           left: 0;
           bottom: 0;
           width: 100%;
@@ -34,15 +35,17 @@
       margin-left: auto;
       margin-right: auto;
   }
-
-  .blur{
-      -webkit-filter: blur(35px); /* Chrome, Opera */
-       -moz-filter: blur(35px);
-        -ms-filter: blur(35px);    
-            filter: blur(35px);
+  .modal-body {overflow: auto; width: 100%}
+  span
+  {
+      word-break: normal;
+      width: 100%;
+      float: left;
+      display: block;
+      white-space: pre-wrap;
+      word-wrap : break-word ;
+      overflow: hidden ;
   }
-
-  .modal-body {overflow: auto;max-height:600px;}
 </style>
 
 <script type="text/javascript">
@@ -52,7 +55,7 @@
   }
   function close_web(){
       window.open('about:blank','_self');
-      window.close(); 
+      window.close();
   }
   function redirection(){
       window.open('/products','_self');
@@ -71,7 +74,7 @@
     </div>
 
 
-    <div style="padding-top: 50px">
+    <div style="padding-left: : 10px">
       <span>  </span>
       <button style="width: 60px" type="button" class="btn btn-danger active" onclick="display_modal()">登入</button>
       <span></span>
@@ -79,16 +82,15 @@
   </div>
 
   <!-- 模态框（Modal） -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" style="width: 125%; margin-left: -60px">
+  <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel">
             重要提示
           </h4>
         </div>
-        <div class="modal-body">
-          <p>
+        <div class="modal-body modal-lg" style="word-wrap:break-word;">
             <span style="font-size: 12.5px; color: #626262;">请您细阅此重要提示，并完整阅读根据您的具体情况进行选择。</span><br />
             <span style="font-size: 12.5px; color: #626262;"></span><br />
             <span style="font-size: 12.5px; color: #626262;">请您确认您或您所代表的机构是符合《中华人民共和国证券投资基金法》、《私募投资基金监督管理暂行办法》及其他相关法律法规所认定的合格投资者。</span><br />
@@ -103,15 +105,14 @@
              <span style="font-size: 12.5px; color: #626262;"></span><br />
             <span style="font-size: 12.5px; color: #626262;">“本网站”指由上海储贺投资管理有限公司（以下简称“本公司”）所有并及其网站内包含的所有信息及材料。本网站所发布的信息、观点和数据有可能因所基于的信息发布日之后的情势或其他因素的变更而不再准确或失效，本公司不承诺及时更新不准确或过时的信息、观点以及数据。</span><br />
             <span style="font-size: 12.5px; color: #626262;"></span><br />
-            <span style="font-size: 12.5px; color: #626262;">本网站介绍的信息、观点和数据仅供一般性参考，不应被视为购买或销售任何金融产品的某种要约，亦非对任何交易的正式确认。投资有风险，投资产品的过往业绩并不预示其未来表现，本公司不对产品财产的收益状况做出任何承诺或担保，投资者不应依赖本网站所提供的数据做出投资决策，在做出投资决策前应认真阅读相关产品合同及风险揭示等宣传推介文件，并自行承担投资风险。</span>
-          </p>
+            <span style="font-size: 12.5px; color: #626262;">本网站介绍的信息、观点和数据仅供一般性参考，不应被视为购买或销售任何金融产品的某种要约，亦非对任何交易的正式确认。投资有风险，投资产品的过往业绩并不预示其未来表现，本公司不对产品财产的收益状况做出任何承诺或担保，投资者不应依赖本网站所提供的数据做出投资决策，在做出投资决策前应认真阅读相关产品合同及风险揭示等宣传推介文件，并自行承担投资风险。</span><br />
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" onclick="redirection()">
+        <div class="modal-footer modal-lg">
+          <button type="button" class="btn btn-default" onclick="redirection()" style="float: left;">
             <span style="font-size: 12.5px;">我确认我或我所代表的机构是一名“合格投资者”，</span><br />
             <span style="font-size: 12.5px;">而且同意接受上述所有条件和条款。</span><br />
           </button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="close_web()">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="close_web()" style="float: right;">
             <span style="font-size: 12.5px;">我或我所代表的机构不是一名“合格投资者”，</span><br />
             <span style="font-size: 12.5px;">或者我/我们不同意接受上述所有条件和条款。</span><br />
           </button>
@@ -130,7 +131,7 @@
         <a target="_blank" style="color:#585856;padding-right: 20px;">2017-2019 © 上海储贺投资管理有限公司 版权所有</a>
       </p>
     </div>
-   
+
   </div>
 
 </body>
