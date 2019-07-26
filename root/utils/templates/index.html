@@ -58,8 +58,7 @@
       window.close();
   }
   function redirection(){
-      window.open('/products','_self');
-      window.close();
+      window.open(window.location+'products','_self');
   }
 
 </script>
@@ -67,14 +66,14 @@
 <body>
   <div class="center-in-center">
     <div>
-      <img src="static/img/corp_icon.png" style="width: 360px; height: 360px">
+      <img src="static/img/corp_icon.png" style="width: 300px; height: 300px">
     </div>
     <div>
       <img src="static/img/corp_name.png" style="width: 290px; height: 100px;padding-top: 40px; padding-left: 70px">
     </div>
 
 
-    <div style="padding-left: : 10px">
+    <div style="padding-left: 10px">
       <span>  </span>
       <button style="width: 60px" type="button" class="btn btn-danger active" onclick="display_modal()">登入</button>
       <span></span>
