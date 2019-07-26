@@ -94,9 +94,13 @@ def check_strategy_performance(subclass_name):
     }
     try:
         today = datetime.datetime.today().strftime('%Y-%m-%d')
+        if request.args.get('start_date') is None:
+            start_date = '2016-01-01'
+        else:
+            start_date = request.args.get('start_date')
         results = session.query(StrategyPerformance)\
                     .filter_by(subclass_name=subclass_name)\
-                    .filter(StrategyPerformance.date >= '2016-01-01') \
+                    .filter(StrategyPerformance.date >= start_date) \
                     .filter(StrategyPerformance.date < today) \
                     .order_by(StrategyPerformance.date)\
                     .all()
