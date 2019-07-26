@@ -103,6 +103,9 @@ def check_strategy_performance(subclass_name):
         if len(results) > 0:
             start_point = results[0].strategy_value
             for row in results:
+                if row.strategy_value is None or row.trailing_drawdown is None:
+                    print('NoneType is found: ')
+                    print(row)
                 r['dates'].append(row.date.strftime('%Y-%m-%d'))
                 r['strategy_values'].append(round(row.strategy_value / start_point, 4))
                 r['holding_shares'].append(row.holding_shares)
