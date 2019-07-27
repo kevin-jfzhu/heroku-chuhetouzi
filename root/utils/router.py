@@ -59,9 +59,3 @@ def strategies():
     g.title = "储贺投资 - 策略表现"
     g.tab_strategies = "active"
     return render_template('strategies.html')
-
-
-# for test use only
-@app.route('/test', methods=['GET'])
-def test():
-    return render_template('base.html')
