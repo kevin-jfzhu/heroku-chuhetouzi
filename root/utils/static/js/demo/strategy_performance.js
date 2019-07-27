@@ -289,6 +289,11 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
 }
 
 
+$.ready(function(){
+  console.log('Page is ready');
+});
+
+
 $.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
   let performance_data = res.results;
   var ctx_performance_bs_fast = document.getElementById("大小盘-快-净值");
@@ -379,3 +384,5 @@ $.getJSON('/api/v1/strategy/pos-price_svm').done(function(res) {
   var charts_pp_svm = generate_daxiaopan_performance(performance_data, ctx_performance_pp_svm,
                                                      ctx_drawdown_pp_svm, ctx_correctness_pp_svm);
 });
+
+

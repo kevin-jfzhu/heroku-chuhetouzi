@@ -31,9 +31,12 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <img src="static/img/corp_icon.png" style="width: 35px; height: 35px; filter: grayscale(100%) invert(100%)">
         </div>
-        <div class="sidebar-brand-text mx-3">储贺投资</div>
+        <div class="sidebar-brand-text mx-3">
+
+          <img src="static/img/corp_name.png" style="width: 110px; height: 30px; filter: invert(100%)">
+        </div>
       </a>
 
       <!-- Divider -->
@@ -64,6 +67,30 @@
       </li>
 
       <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        特别信息
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>特色数据</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">特色数据: </h6>
+            <a class="collapse-item" href="#">XWLB统计</a>
+            <a class="collapse-item" href="#">房产交易情况</a>
+            <a class="collapse-item" href="#">餐饮业数据</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
@@ -91,9 +118,9 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input id="search_date" type="text" class="form-control bg-light border-0 small" placeholder="输入起始日期(例：2017-01-05)" aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" id="confirm_search_button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -271,6 +298,8 @@
 
   {% block custom_js_scripts %}
   {% endblock %}
+
+  <script src="static/js/demo/update_start_date.js"></script>
 
 </body>
 

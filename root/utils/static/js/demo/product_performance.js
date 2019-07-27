@@ -96,6 +96,9 @@ function generate_product_performance(dates, unit_values, ctx) {
 }
 
 
+
+
+
 $.getJSON('/api/v1/performance/product/chuheyihao').done(function(res) {
   let dates = res.dates;
   let unit_values = res.unit_values;
@@ -113,3 +116,12 @@ $.getJSON('/api/v1/performance/product/lianghuayihao').done(function(res) {
 
 
 
+$(window).ready(function(){
+  console.log('Page is ready');
+  let btn = document.getElementById('confirm_search_button');
+  btn.addEventListener('click', function () {
+    let value_in_search_box = document.getElementById('search_date').value;
+    console.log(value_in_search_box);
+    console.log(Date.parse(value_in_search_box));
+  })
+});

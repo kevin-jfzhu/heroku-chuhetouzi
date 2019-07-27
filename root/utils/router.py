@@ -60,5 +60,3 @@ def strategies():
     return render_template('strategies.html')
 
 
-
-

@@ -21,9 +21,9 @@ def post_daily_product_performance_data(daily_performance_data, to_localhost=Fal
 
 # UPDATE DATA HERE
 data = {
-    'product_name': 'chuheyihao',
+    'product_name': 'test',
     'date': '2019-07-22',
-    'unit_value': 1.0223,
+    'unit_value': 1.0253,
     'asset_value': 11170230.86,
     'shares': 10927097,
     'unit_value_change': 0.0052,
@@ -31,4 +31,4 @@ data = {
     'note_of_important_events': ''      # If needed
 }
 
-post_daily_product_performance_data(data, to_localhost=False)
+post_daily_product_performance_data(data, to_localhost=True)

@@ -42,15 +42,15 @@ def update_product_performance():
                                 order_by(ProductPerformance.date).\
                                 first()
             if record is None:
-                pp = ProductPerformance(last_updated_time = int(time.time()),
-                                        date = data.get('date'),
-                                        product_name = data.get('product_name'),
-                                        unit_value = data.get('unit_value'),
-                                        asset_value = data.get('asset_value'),
-                                        unit_value_change = data.get('unit_value_change'),
-                                        asset_value_change = data.get('asset_value_change'),
-                                        shares = data.get('shares'),
-                                        note_of_important_events = data.get('note_of_important_events')
+                pp = ProductPerformance(last_updated_time=int(time.time()),
+                                        date=data.get('date'),
+                                        product_name=data.get('product_name'),
+                                        unit_value=data.get('unit_value'),
+                                        asset_value=data.get('asset_value'),
+                                        unit_value_change=data.get('unit_value_change'),
+                                        asset_value_change=data.get('asset_value_change'),
+                                        shares=data.get('shares'),
+                                        note_of_important_events=data.get('note_of_important_events')
                                         )
                 session.add(pp)
                 session.commit()
@@ -131,9 +131,9 @@ def update_daxiaopan_performance():
                                 order_by(StrategyPerformance.date).\
                                 first()
             if record is None:
-                sp = StrategyPerformance(last_updated_time=int(time.time()),
-                                         date=data.get('date'),
+                sp = StrategyPerformance(date=data.get('date'),
                                          subclass_name=data.get('subclass_name'),
+                                         last_updated_time=int(time.time()),
                                          strategy_value=data.get('strategy_value'),
                                          holding_shares=data.get('holding_shares'),
                                          signal_direction=data.get('signal_direction'),
