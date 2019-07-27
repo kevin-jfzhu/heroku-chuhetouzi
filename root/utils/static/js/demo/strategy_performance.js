@@ -1,6 +1,72 @@
+// Set calendar for change date
+var date_picker = $('#datepicker');
+date_picker.datepicker({
+    weekStart: 1,
+    daysOfWeekHighlighted: "6,0",
+    autoclose: true,
+    todayHighlight: true,
+});
+date_picker.datepicker("setDate", new Date('2016-01-01'));
+var search_btn = document.getElementById('search_button');
+
+
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
+
+var charts_bs_fast;
+var charts_bs_vol;
+var charts_bs_ensemble;
+var charts_bs_slow;
+
+var charts_it_general;
+var charts_it_ensemble;
+
+var charts_fs_high;
+var charts_fs_mid;
+var charts_fs_low;
+
+var charts_pp_svm;
+
+var ctx_performance_bs_fast = document.getElementById("大小盘-快-净值");
+var ctx_drawdown_bs_fast = document.getElementById("大小盘-快-回撤");
+var ctx_correctness_bs_fast = document.getElementById("大小盘-快-正确率");
+
+var ctx_performance_bs_vol = document.getElementById("大小盘-快带量-净值");
+var ctx_drawdown_bs_vol = document.getElementById("大小盘-快带量-回撤");
+var ctx_correctness_bs_vol = document.getElementById("大小盘-快带量-正确率");
+
+var ctx_performance_bs_ensemble = document.getElementById("大小盘-快集成-净值");
+var ctx_drawdown_bs_ensemble = document.getElementById("大小盘-快集成-回撤");
+var ctx_correctness_bs_ensemble = document.getElementById("大小盘-快集成-正确率");
+
+var ctx_performance_bs_slow = document.getElementById("大小盘-慢-净值");
+var ctx_drawdown_bs_slow = document.getElementById("大小盘-慢-回撤");
+var ctx_correctness_bs_slow = document.getElementById("大小盘-慢-正确率");
+
+var ctx_performance_it_general = document.getElementById("指数择时-净值");
+var ctx_drawdown_it_general = document.getElementById("指数择时-回撤");
+var ctx_correctness_it_general = document.getElementById("指数择时-正确率");
+
+var ctx_performance_it_ensemble = document.getElementById("指数择时-集成-净值");
+var ctx_drawdown_it_ensemble = document.getElementById("指数择时-集成-回撤");
+var ctx_correctness_it_ensemble = document.getElementById("指数择时-集成-正确率");
+
+var ctx_performance_fs_high = document.getElementById("资金情绪-高波-净值");
+var ctx_drawdown_fs_high = document.getElementById("资金情绪-高波-回撤");
+var ctx_correctness_fs_high = document.getElementById("资金情绪-高波-正确率");
+
+var ctx_performance_fs_mid = document.getElementById("资金情绪-中波-净值");
+var ctx_drawdown_fs_mid = document.getElementById("资金情绪-中波-回撤");
+var ctx_correctness_fs_mid = document.getElementById("资金情绪-中波-正确率");
+
+var ctx_performance_fs_low = document.getElementById("资金情绪-低波-净值");
+var ctx_drawdown_fs_low = document.getElementById("资金情绪-低波-回撤");
+var ctx_correctness_fs_low = document.getElementById("资金情绪-低波-正确率");
+
+var ctx_performance_pp_svm = document.getElementById("SVM量价-净值");
+var ctx_drawdown_pp_svm = document.getElementById("SVM量价-回撤");
+var ctx_correctness_pp_svm = document.getElementById("SVM量价-正确率");
 
 function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown, ctx_correctness) {
   let performanceChart = new Chart(ctx_performance, {
@@ -289,100 +355,165 @@ function generate_daxiaopan_performance(dxp_data, ctx_performance, ctx_drawdown,
 }
 
 
-$.ready(function(){
-  console.log('Page is ready');
-});
-
-
 $.getJSON('/api/v1/strategy/bigsmall_fast').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_bs_fast = document.getElementById("大小盘-快-净值");
-  var ctx_drawdown_bs_fast = document.getElementById("大小盘-快-回撤");
-  var ctx_correctness_bs_fast = document.getElementById("大小盘-快-正确率");
-  var charts_bs_fast = generate_daxiaopan_performance(performance_data, ctx_performance_bs_fast,
+  charts_bs_fast = generate_daxiaopan_performance(performance_data, ctx_performance_bs_fast,
                                                        ctx_drawdown_bs_fast, ctx_correctness_bs_fast);
 });
 
 $.getJSON('/api/v1/strategy/bigsmall_vol').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_bs_vol = document.getElementById("大小盘-快带量-净值");
-  var ctx_drawdown_bs_vol = document.getElementById("大小盘-快带量-回撤");
-  var ctx_correctness_bs_vol = document.getElementById("大小盘-快带量-正确率");
-  var charts_bs_vol = generate_daxiaopan_performance(performance_data, ctx_performance_bs_vol,
+  charts_bs_vol = generate_daxiaopan_performance(performance_data, ctx_performance_bs_vol,
                                                      ctx_drawdown_bs_vol, ctx_correctness_bs_vol);
 });
 
 $.getJSON('/api/v1/strategy/bigsmall_ensemble').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_bs_ensemble = document.getElementById("大小盘-快集成-净值");
-  var ctx_drawdown_bs_ensemble = document.getElementById("大小盘-快集成-回撤");
-  var ctx_correctness_bs_ensemble = document.getElementById("大小盘-快集成-正确率");
-  var charts_bs_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_bs_ensemble,
+  charts_bs_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_bs_ensemble,
                                                           ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
 });
 
 $.getJSON('/api/v1/strategy/bigsmall_slow').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_bs_slow = document.getElementById("大小盘-慢-净值");
-  var ctx_drawdown_bs_slow = document.getElementById("大小盘-慢-回撤");
-  var ctx_correctness_bs_slow = document.getElementById("大小盘-慢-正确率");
-  var charts_bs_slow = generate_daxiaopan_performance(performance_data, ctx_performance_bs_slow,
+  charts_bs_slow = generate_daxiaopan_performance(performance_data, ctx_performance_bs_slow,
                                                       ctx_drawdown_bs_slow, ctx_correctness_bs_slow);
 });
 
 $.getJSON('/api/v1/strategy/index-timing_general').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_it_general = document.getElementById("指数择时-净值");
-  var ctx_drawdown_it_general = document.getElementById("指数择时-回撤");
-  var ctx_correctness_it_general = document.getElementById("指数择时-正确率");
-  var charts_it_general = generate_daxiaopan_performance(performance_data, ctx_performance_it_general,
+  charts_it_general = generate_daxiaopan_performance(performance_data, ctx_performance_it_general,
                                                          ctx_drawdown_it_general, ctx_correctness_it_general);
 });
 
 $.getJSON('/api/v1/strategy/index-timing_ensemble').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_it_ensemble = document.getElementById("指数择时-集成-净值");
-  var ctx_drawdown_it_ensemble = document.getElementById("指数择时-集成-回撤");
-  var ctx_correctness_it_ensemble = document.getElementById("指数择时-集成-正确率");
-  var charts_it_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_it_ensemble,
+  charts_it_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_it_ensemble,
                                                          ctx_drawdown_it_ensemble, ctx_correctness_it_ensemble);
 });
 
 
 $.getJSON('/api/v1/strategy/flow-sentim_high').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_fs_high = document.getElementById("资金情绪-高波-净值");
-  var ctx_drawdown_fs_high = document.getElementById("资金情绪-高波-回撤");
-  var ctx_correctness_fs_high = document.getElementById("资金情绪-高波-正确率");
-  var charts_fs_high = generate_daxiaopan_performance(performance_data, ctx_performance_fs_high,
+
+  charts_fs_high = generate_daxiaopan_performance(performance_data, ctx_performance_fs_high,
                                                      ctx_drawdown_fs_high, ctx_correctness_fs_high);
 });
 
 $.getJSON('/api/v1/strategy/flow-sentim_mid').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_fs_mid = document.getElementById("资金情绪-中波-净值");
-  var ctx_drawdown_fs_mid = document.getElementById("资金情绪-中波-回撤");
-  var ctx_correctness_fs_mid = document.getElementById("资金情绪-中波-正确率");
-  var charts_fs_mid = generate_daxiaopan_performance(performance_data, ctx_performance_fs_mid,
+  charts_fs_mid = generate_daxiaopan_performance(performance_data, ctx_performance_fs_mid,
                                                      ctx_drawdown_fs_mid, ctx_correctness_fs_mid);
 });
 
 $.getJSON('/api/v1/strategy/flow-sentim_low').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_fs_low = document.getElementById("资金情绪-低波-净值");
-  var ctx_drawdown_fs_low = document.getElementById("资金情绪-低波-回撤");
-  var ctx_correctness_fs_low = document.getElementById("资金情绪-低波-正确率");
-  var charts_fs_low = generate_daxiaopan_performance(performance_data, ctx_performance_fs_low,
+  charts_fs_low = generate_daxiaopan_performance(performance_data, ctx_performance_fs_low,
                                                      ctx_drawdown_fs_low, ctx_correctness_fs_low);
 });
 
 $.getJSON('/api/v1/strategy/pos-price_svm').done(function(res) {
   let performance_data = res.results;
-  var ctx_performance_pp_svm = document.getElementById("SVM量价-净值");
-  var ctx_drawdown_pp_svm = document.getElementById("SVM量价-回撤");
-  var ctx_correctness_pp_svm = document.getElementById("SVM量价-正确率");
-  var charts_pp_svm = generate_daxiaopan_performance(performance_data, ctx_performance_pp_svm,
+  charts_pp_svm = generate_daxiaopan_performance(performance_data, ctx_performance_pp_svm,
                                                      ctx_drawdown_pp_svm, ctx_correctness_pp_svm);
 });
 
 
+function load_search_value() {
+    let time_string = date_picker.datepicker("getDate").toISOString().substring(0, 10);
+
+    if (moment(time_string).isValid()) {
+        //alert(time_string);
+
+        $.getJSON('/api/v1/strategy/bigsmall_fast?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_bs_fast[0].destroy();
+            charts_bs_fast[1].destroy();
+            charts_bs_fast[2].destroy();
+            charts_bs_fast = generate_daxiaopan_performance(performance_data, ctx_performance_bs_fast,
+                                                   ctx_drawdown_bs_fast, ctx_correctness_bs_fast);
+        });
+
+        $.getJSON('/api/v1/strategy/bigsmall_vol?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_bs_vol[0].destroy();
+            charts_bs_vol[1].destroy();
+            charts_bs_vol[2].destroy();
+            charts_bs_vol = generate_daxiaopan_performance(performance_data, ctx_performance_bs_vol,
+                                                   ctx_drawdown_bs_vol, ctx_correctness_bs_vol);
+        });
+
+        $.getJSON('/api/v1/strategy/bigsmall_ensemble?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_bs_ensemble[0].destroy();
+            charts_bs_ensemble[1].destroy();
+            charts_bs_ensemble[2].destroy();
+            charts_bs_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_bs_ensemble,
+                                                   ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
+        });
+
+        $.getJSON('/api/v1/strategy/bigsmall_slow?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_bs_slow[0].destroy();
+            charts_bs_slow[1].destroy();
+            charts_bs_slow[2].destroy();
+            charts_bs_slow = generate_daxiaopan_performance(performance_data, ctx_performance_bs_slow,
+                                                   ctx_drawdown_bs_slow, ctx_correctness_bs_slow);
+        });
+
+        $.getJSON('/api/v1/strategy/index-timing_general?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_it_general[0].destroy();
+            charts_it_general[1].destroy();
+            charts_it_general[2].destroy();
+            charts_it_general = generate_daxiaopan_performance(performance_data, ctx_performance_it_general,
+                                                   ctx_drawdown_it_general, ctx_correctness_it_general);
+        });
+
+        $.getJSON('/api/v1/strategy/index-timing_ensemble?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_it_ensemble[0].destroy();
+            charts_it_ensemble[1].destroy();
+            charts_it_ensemble[2].destroy();
+            charts_it_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_it_ensemble,
+                                                   ctx_drawdown_it_ensemble, ctx_correctness_it_ensemble);
+        });
+
+        $.getJSON('/api/v1/strategy/flow-sentim_high?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_fs_high[0].destroy();
+            charts_fs_high[1].destroy();
+            charts_fs_high[2].destroy();
+            charts_fs_high = generate_daxiaopan_performance(performance_data, ctx_performance_fs_high,
+                                                   ctx_drawdown_fs_high, ctx_correctness_fs_high);
+        });
+
+        $.getJSON('/api/v1/strategy/flow-sentim_mid?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_fs_mid[0].destroy();
+            charts_fs_mid[1].destroy();
+            charts_fs_mid[2].destroy();
+            charts_fs_mid = generate_daxiaopan_performance(performance_data, ctx_performance_fs_mid,
+                                                   ctx_drawdown_fs_mid, ctx_correctness_fs_mid);
+        });
+
+        $.getJSON('/api/v1/strategy/flow-sentim_low?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_fs_low[0].destroy();
+            charts_fs_low[1].destroy();
+            charts_fs_low[2].destroy();
+            charts_fs_low = generate_daxiaopan_performance(performance_data, ctx_performance_fs_low,
+                                                   ctx_drawdown_fs_low, ctx_correctness_fs_low);
+        });
+
+        $.getJSON('/api/v1/strategy/pos-price_svm?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_pp_svm[0].destroy();
+            charts_pp_svm[1].destroy();
+            charts_pp_svm[2].destroy();
+            charts_pp_svm = generate_daxiaopan_performance(performance_data, ctx_performance_pp_svm,
+                                                   ctx_drawdown_pp_svm, ctx_correctness_pp_svm);
+        });
+    }
+}
+
+search_btn.addEventListener('click', load_search_value);
