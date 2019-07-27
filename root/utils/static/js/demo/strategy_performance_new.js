@@ -6,7 +6,7 @@ date_picker.datepicker({
     autoclose: true,
     todayHighlight: true,
 });
-date_picker.datepicker("setDate", new Date());
+date_picker.datepicker("setDate", new Date('2016-01-01'));
 var search_btn = document.getElementById('search_button');
 
 
