@@ -94,15 +94,22 @@ def check_strategy_performance(subclass_name):
     }
     try:
         today = datetime.datetime.today().strftime('%Y-%m-%d')
+        if request.args.get('start_date') is None:
+            start_date = '2016-01-01'
+        else:
+            start_date = request.args.get('start_date')
         results = session.query(StrategyPerformance)\
                     .filter_by(subclass_name=subclass_name)\
-                    .filter(StrategyPerformance.date >= '2016-01-01') \
+                    .filter(StrategyPerformance.date >= start_date) \
                     .filter(StrategyPerformance.date < today) \
                     .order_by(StrategyPerformance.date)\
                     .all()
         if len(results) > 0:
             start_point = results[0].strategy_value
             for row in results:
+                if row.strategy_value is None or row.trailing_drawdown is None:
+                    print('NoneType is found: ')
+                    print(row)
                 r['dates'].append(row.date.strftime('%Y-%m-%d'))
                 r['strategy_values'].append(round(row.strategy_value / start_point, 4))
                 r['holding_shares'].append(row.holding_shares)

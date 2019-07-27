@@ -1,0 +1,5 @@
+subclass_name,date,strategy_value,holding_shares,signal_direction,correct_direction,rolling_accuracy,trailing_drawdown,note_of_importtant_events
+bigsmall_fast,2019-07-22,41191934.1959999,78,-1,-1,0.52,-0.183449685683376,
+bigsmall_fast,2019-07-23,40485254.1959999,78,-1,1,0.48,-0.197458247975586,
+bigsmall_fast,2019-07-24,40416614.1959999,78,-1,1,0.44,-0.198818903032666,
+bigsmall_fast,2019-07-25,40638134.1959999,78,-1,-1,0.44,-0.194427698075726,
