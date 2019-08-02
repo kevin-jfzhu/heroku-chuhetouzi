@@ -58,3 +58,11 @@ def strategies():
     g.title = "储贺投资 - 策略表现"
     g.tab_strategies = "active"
     return render_template('strategies.html')
+
+
+@app.route('/xwlb', methods=['GET'])
+@app.route('/xwlb.html', methods=['GET'])
+def xwlb():
+    g.title = "储贺投资 - 特色数据 - xwlb统计"
+    g.tab_strategies = "active"
+    return render_template('xwlb.html')
