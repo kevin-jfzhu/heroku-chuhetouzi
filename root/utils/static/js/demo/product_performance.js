@@ -1,12 +1,33 @@
+// Set calendar for change date
+var date_picker = $('#datepicker');
+date_picker.datepicker({
+    weekStart: 1,
+    daysOfWeekHighlighted: "6,0",
+    autoclose: true,
+    todayHighlight: true,
+});
+date_picker.datepicker("setDate", moment().add(-365, 'day')._d);
+var search_btn = document.getElementById('search_button');
+
+
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-function generate_product_performance(dates, unit_values, ctx) {
+var chuheyihao_performance;
+var lianghuayihao_performance;
+var ctx_chuheyihao = document.getElementById("储贺1号");
+var ctx_lianghuayihao = document.getElementById("储贺量化1号");
+
+var chart_chuheyihao;
+var chart_lianghuayihao;
+
+
+function generate_product_performance(product_performance, ctx) {
   let productChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: dates,
+      labels: product_performance.dates,
       datasets: [{
         label: "收盘净值",
         lineTension: 0.3,
@@ -20,7 +41,7 @@ function generate_product_performance(dates, unit_values, ctx) {
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: unit_values,
+        data: product_performance.unit_values,
       }],
     },
     options: {
@@ -97,19 +118,36 @@ function generate_product_performance(dates, unit_values, ctx) {
 
 
 $.getJSON('/api/v1/performance/product/chuheyihao').done(function(res) {
-  let dates = res.dates;
-  let unit_values = res.unit_values;
-  var ctx_p1 = document.getElementById("储贺1号");
-  var productChart = generate_product_performance(dates, unit_values, ctx_p1);
+  chuheyihao_performance = res.results;
+  chart_chuheyihao = generate_product_performance(chuheyihao_performance, ctx_chuheyihao);
 });
 
 
 $.getJSON('/api/v1/performance/product/lianghuayihao').done(function(res) {
-  let dates = res.dates;
-  let unit_values = res.unit_values;
-  var ctx_p2 = document.getElementById("储贺量化1号");
-  var productChart = generate_product_performance(dates, unit_values, ctx_p2);
+  lianghuayihao_performance = res.results;
+  chart_lianghuayihao = generate_product_performance(lianghuayihao_performance, ctx_lianghuayihao);
 });
 
 
+function load_search_value() {
+    let time_string = date_picker.datepicker("getDate").toISOString().substring(0, 10);
+
+    if (moment(time_string).isValid()) {
+        //alert(time_string);
+
+        $.getJSON('/api/v1/performance/product/chuheyihao?start_date='+time_string).done(function(res) {
+            chuheyihao_performance = res.results;
+            chart_chuheyihao.destroy();
+            chart_chuheyihao = generate_product_performance(chuheyihao_performance, ctx_chuheyihao);
+        });
+
+        $.getJSON('/api/v1/performance/product/lianghuayihao?start_date='+time_string).done(function(res) {
+            lianghuayihao_performance = res.results;
+            chart_lianghuayihao.destroy();
+            chart_lianghuayihao = generate_product_performance(lianghuayihao_performance, ctx_lianghuayihao);
+        });
+    }
+}
+
+search_btn.addEventListener('click', load_search_value);
 

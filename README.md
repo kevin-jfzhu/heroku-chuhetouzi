@@ -1,12 +1,8 @@
-# Flask Heroku Project - Chuhe v0.3
-
-
-This repo contains some sample code to deploy a simple Flask application to [Heroku](https://heroku.com). The deployed app counts with the following features:
-
-* Running Python 3.7.3
+# Flask Heroku Project - Chuhe v0.8
 
 
 To-Do List:
-1. Development charts for strategy performances
-2. Develop a form view to accept latest performance data
-3. Restructure .html files with Jinja blocks
+1. Develop login & auth page
+2. Integrate new dashboards
+3. Optimize parallel performance
+4. Other optimizations

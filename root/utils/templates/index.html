@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+      <!-- Custom styles for this template-->
+  <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<style type="text/css">
+  .footer {
+          position: absolute;
+          z-index: -9999;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+      }
+  .center-in-center{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+        }
+  .btn-danger{
+      display: table;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .modal-body {overflow: auto; width: 100%}
+  span
+  {
+      word-break: normal;
+      width: 100%;
+      float: left;
+      display: block;
+      white-space: pre-wrap;
+      word-wrap : break-word ;
+      overflow: hidden ;
+  }
+</style>
+
+<script type="text/javascript">
+  function display_modal()
+  {
+      $("#myModal").modal("show");
+  }
+  function close_web(){
+      window.open('about:blank','_self');
+      window.close();
+  }
+  function redirection(){
+      window.open(window.location.origin + '/products','_self');
+  }
+
+</script>
+
+<body>
+  <div class="center-in-center">
+    <div>
+      <img src="static/img/corp_icon.png" style="width: 300px; height: 300px">
+    </div>
+    <div>
+      <img src="static/img/corp_name.png" style="width: 290px; height: 100px;padding-top: 40px; padding-left: 70px">
+    </div>
+
+
+    <div style="padding-left: 10px">
+      <span>  </span>
+      <button style="width: 60px" type="button" class="btn btn-danger active" onclick="display_modal()">登入</button>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- 模态框（Modal） -->
+  <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">
+            重要提示
+          </h4>
+        </div>
+        <div class="modal-body modal-lg" style="word-wrap:break-word;">
+            <span style="font-size: 12.5px; color: #626262;">请您细阅此重要提示，并完整阅读根据您的具体情况进行选择。</span><br />
+            <span style="font-size: 12.5px; color: #626262;"></span><br />
+            <span style="font-size: 12.5px; color: #626262;">请您确认您或您所代表的机构是符合《中华人民共和国证券投资基金法》、《私募投资基金监督管理暂行办法》及其他相关法律法规所认定的合格投资者。</span><br />
+            <span style="font-size: 12.5px; color: #626262;"></span><br />
+            <span style="font-size: 12.5px; color: #626262;">根据我国《私募投资基金监督管理暂行办法》的规定，私募基金合格投资者的标准如下：</span><br />
+            <span style="font-size: 12.5px; color: #626262;">1、具备相应风险识别能力和风险承担能力，投资于单只私募基金的金额不低于100万元且符合下列相关标准的单位和个人：</span><br />
+            <span style="font-size: 12.5px; color: #626262;">（1）净资产不低于1000万元的单位；（2）个人金融资产不低于300万元或者最近三年个人年均收入不低于50万元。（前款所称金融资产包括银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货权益等。）</span><br />
+            <span style="font-size: 12.5px; color: #626262;">2、下列投资者视为合格投资者：</span><br />
+            <span style="font-size: 12.5px; color: #626262;">（1）社会保障基金、企业年金、慈善基金；（2）依法设立并受国务院金融监督管理机构监管的投资计划；（3）投资于所管理私募基金的私募基金管理人及其从业人员；（4）中国证监会规定的其他投资者。</span><br />
+            <span style="font-size: 12.5px; color: #626262;"></span><br />
+            <span style="font-size: 12.5px; color: #626262;">如果确认您或您所代表的机构是一名“合格投资者”，并将遵守适用的有关法规请点击“接受”键以继续浏览本公司网站。如您不同意任何有关条款，请直接关闭本网站。</span><br />
+             <span style="font-size: 12.5px; color: #626262;"></span><br />
+            <span style="font-size: 12.5px; color: #626262;">“本网站”指由上海储贺投资管理有限公司（以下简称“本公司”）所有并及其网站内包含的所有信息及材料。本网站所发布的信息、观点和数据有可能因所基于的信息发布日之后的情势或其他因素的变更而不再准确或失效，本公司不承诺及时更新不准确或过时的信息、观点以及数据。</span><br />
+            <span style="font-size: 12.5px; color: #626262;"></span><br />
+            <span style="font-size: 12.5px; color: #626262;">本网站介绍的信息、观点和数据仅供一般性参考，不应被视为购买或销售任何金融产品的某种要约，亦非对任何交易的正式确认。投资有风险，投资产品的过往业绩并不预示其未来表现，本公司不对产品财产的收益状况做出任何承诺或担保，投资者不应依赖本网站所提供的数据做出投资决策，在做出投资决策前应认真阅读相关产品合同及风险揭示等宣传推介文件，并自行承担投资风险。</span><br />
+        </div>
+        <div class="modal-footer modal-lg">
+          <button type="button" class="btn btn-default" onclick="redirection()" style="float: left;">
+            <span style="font-size: 12.5px;">我确认我或我所代表的机构是一名“合格投资者”，</span><br />
+            <span style="font-size: 12.5px;">而且同意接受上述所有条件和条款。</span><br />
+          </button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="close_web()" style="float: right;">
+            <span style="font-size: 12.5px;">我或我所代表的机构不是一名“合格投资者”，</span><br />
+            <span style="font-size: 12.5px;">或者我/我们不同意接受上述所有条件和条款。</span><br />
+          </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
+  <!-- 添加footer -->
+  <div class="footer">
+      <div class="footer padd_35_25">
+        <p class="color-anhui footer_link" style="text-align: center;">
+            <a target="_blank" style="color:#585856;padding-right: 20px;cursor: default"></a>
+            <a target="_blank" style="color:#585856;padding-left: 10px;cursor: default"></a>
+        </p>
+      <p class="color-anhui" style="text-align: center;">
+        <a target="_blank" style="color:#585856;padding-right: 20px;">2017-2019 © 上海储贺投资管理有限公司 版权所有</a>
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>

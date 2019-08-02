@@ -4,7 +4,7 @@ from root.utils import app, render_template, g
 """---------------------------------  Pages & Router Definition ---------------------------------"""
 
 
-# @app.route('/', methods=['GET'])
+@app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 @app.route('/index.html', methods=['GET'])
 def index():
@@ -44,7 +44,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-@app.route('/', methods=['GET'])
 @app.route('/products', methods=['GET'])
 @app.route('/products.html', methods=['GET'])
 def products():
@@ -59,7 +58,3 @@ def strategies():
     g.title = "储贺投资 - 策略表现"
     g.tab_strategies = "active"
     return render_template('strategies.html')
-
-
-
-
