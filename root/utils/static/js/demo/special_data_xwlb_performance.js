@@ -91,7 +91,7 @@ function create_strd_option(strd_data){
             "subtextStyle": {
                 "fontSize": 12
             },
-            "subtext": "\u5173\u952e\u8bcd\u7d2f\u8ba1\u63d0\u53ca\u6b21\u6570",
+            "subtext": "\u5173\u952e\u8bcd\u7d2f\u8ba1\u63d0\u53ca\u6b21\u6570(\u6807\u51c6\u5316\u540e)",
             "textStyle": {
                 "fontSize": 18
             },
@@ -124,7 +124,7 @@ function create_strd_option(strd_data){
         {
             "data": strd_data.legends,
             "selectedMode": "multiple",
-            "top": "top",
+            "top": "6.5%",
             "show": true,
             "orient": "horizontal",
             "textStyle": {
@@ -340,7 +340,7 @@ function create_total_option(strd_data){
             "subtextStyle": {
                 "fontSize": 12
             },
-            "subtext": "\u5173\u952e\u8bcd\u7d2f\u8ba1\u63d0\u53ca\u6b21\u6570(\u6807\u51c6\u5316\u540e)",
+            "subtext": "\u5173\u952e\u8bcd\u7d2f\u8ba1\u63d0\u53ca\u6b21\u6570",
             "textStyle": {
                 "fontSize": 18
             },
@@ -373,7 +373,7 @@ function create_total_option(strd_data){
         {
             "data": strd_data.legends,
             "selectedMode": "multiple",
-            "top": "top",
+            "top": "6.5%",
             "show": true,
             "orient": "horizontal",
             "textStyle": {
@@ -481,6 +481,8 @@ function generate_xwlb_performance(type, performance_data, performance) {
   }else{
 	performanceChart.setOption(create_total_option(performance_data));
   }
+
+  window.addEventListener("resize", () => { performanceChart.resize();});
 
   return performanceChart
 }
