@@ -48,12 +48,73 @@ class StrategyPerformance(Base):
         return str(self.__dict__)
 
 
+class CctvContent(Base):
+    __tablename__ = 'cctv_content'
+
+    date = Column(Date, primary_key=True)
+    no1 = Column(BigInteger, nullable=True)
+    no2  = Column(BigInteger, nullable=True)
+    no3  = Column(BigInteger, nullable=True)
+    no4  = Column(BigInteger, nullable=True)
+    no5  = Column(BigInteger, nullable=True)
+    no6  = Column(BigInteger, nullable=True)
+    no7  = Column(BigInteger, nullable=True)
+    return_500_next_week = Column(Float, nullable=True)
+    no1_score  = Column(Float, nullable=True)
+    no2_score  = Column(Float, nullable=True)
+    no3_score  = Column(Float, nullable=True)
+    no4_score  = Column(Float, nullable=True)
+    no5_score  = Column(Float, nullable=True)
+    no6_score  = Column(Float, nullable=True)
+    no7_score  = Column(Float, nullable=True)
+    no1_mean  = Column(Float, nullable=True)
+    no2_mean  = Column(Float, nullable=True)
+    no3_mean  = Column(Float, nullable=True)
+    no4_mean  = Column(Float, nullable=True)
+    no5_mean  = Column(Float, nullable=True)
+    no6_mean  = Column(Float, nullable=True)
+    no7_mean  = Column(Float, nullable=True)
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+class CctvTitle(Base):
+    __tablename__ = 'cctv_title'
+
+    date = Column(Date, primary_key=True)
+    no1 = Column(BigInteger, nullable=True)
+    no2  = Column(BigInteger, nullable=True)
+    no3  = Column(BigInteger, nullable=True)
+    no4  = Column(BigInteger, nullable=True)
+    no5  = Column(BigInteger, nullable=True)
+    no6  = Column(BigInteger, nullable=True)
+    no7  = Column(BigInteger, nullable=True)
+    return_500_next_week = Column(Float, nullable=True)
+    no1_score  = Column(Float, nullable=True)
+    no2_score  = Column(Float, nullable=True)
+    no3_score  = Column(Float, nullable=True)
+    no4_score  = Column(Float, nullable=True)
+    no5_score  = Column(Float, nullable=True)
+    no6_score  = Column(Float, nullable=True)
+    no7_score  = Column(Float, nullable=True)
+    no1_mean  = Column(Float, nullable=True)
+    no2_mean  = Column(Float, nullable=True)
+    no3_mean  = Column(Float, nullable=True)
+    no4_mean  = Column(Float, nullable=True)
+    no5_mean  = Column(Float, nullable=True)
+    no6_mean  = Column(Float, nullable=True)
+    no7_mean  = Column(Float, nullable=True)
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
 """                 Init the database               """
 
 LOCAL_DB = 'postgresql://kevinzhu:Mcgrady1@127.0.0.1:5432/mydb'
 DATABASE_URL = os.environ.get('DATABASE_URL')
 NEW_DB_URL = os.environ.get('HEROKU_POSTGRESQL_MAROON_URL')
-
 
 engine = create_engine(NEW_DB_URL.replace('postgres', 'postgresql+psycopg2')+'?sslmode=require')
 Base.metadata.create_all(engine)

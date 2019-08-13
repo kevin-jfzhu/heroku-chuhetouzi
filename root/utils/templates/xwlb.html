@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block page_content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">新闻文本统计</h1>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-xl-12">
+
+              <!-- xwlb title_strd -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">XWLB-标题</h6>
+                </div>
+                <div class="card-body">
+                  <div id="title_strd" style="width:1400px;height:600px;"></div>
+                  <hr>风险提示：版权保护，仅供参考，作者不对内容的准确性作出保证。
+                </div>
+              </div>
+
+              <!-- xwlb title_strd -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">XWLB-标题</h6>
+                </div>
+                <div class="card-body">
+                  <div id="title_total" style="width:1400px;height:600px;"></div>
+                  <hr>风险提示：版权保护，仅供参考，作者不对内容的准确性作出保证。
+                </div>
+              </div>
+
+
+              <!-- xwlb title_strd -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">XWLB-内容</h6>
+                </div>
+                <div class="card-body">
+                  <div id="content_strd" style="width:1400px;height:600px;"></div>
+                  <hr>风险提示：版权保护，仅供参考，作者不对内容的准确性作出保证。
+                </div>
+              </div>
+
+              
+
+              <!-- xwlb title_strd -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">XWLB-内容</h6>
+                </div>
+                <div class="card-body">
+                  <div id="content_total" style="width:1400px;height:600px;"></div>
+                  <hr>风险提示：版权保护，仅供参考，作者不对内容的准确性作出保证。
+                </div>
+              </div>
+
+            </div>
+          </div>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock %}
+
+
+{% block custom_js_scripts %}
+    <!-- Page level custom scripts -->
+    <script src="static/js/demo/special_data_xwlb_performance.js"></script>
+{% endblock %}

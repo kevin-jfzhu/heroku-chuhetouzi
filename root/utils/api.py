@@ -186,3 +186,91 @@ def update_daxiaopan_performance():
 
     finally:
         return "Strategy performance data has been updated."
+
+
+# XWLB相关API
+@app.route('/api/v1/special-data/xwlb/<string:name>/<string:sub_type>', methods=['GET'])
+def check_xwlb_performance(name, sub_type):
+    success_code = 0
+
+    r = {
+        'times': [],
+        'data': {}, 
+        'legends': []
+    }
+    try:
+        target_db = CctvTitle if name=='title' else CctvContent
+
+        if sub_type == 'strd':
+            results = session.query(target_db)\
+                        .order_by(target_db.date)\
+                        .all()
+            if len(results) > 0:
+                targets = ['No1', 'No2', 'No3', 'No4', 'No5', 'No6', 'No7', 'IC500_Ret']
+                targets_dict = {
+                    'No1': 'no1_score',
+                    'No2': 'no2_score',
+                    'No3': 'no3_score',
+                    'No4': 'no4_score',
+                    'No5': 'no5_score',
+                    'No6': 'no6_score',
+                    'No7': 'no7_score',
+                    'IC500_Ret': 'return_500_next_week',
+                }
+
+                for target in targets:
+                    r['data'][target] = []
+
+                for rel_obj in results:
+                    r['times'].append(str(rel_obj.__dict__['date']))
+                    for target in targets:
+                        r['data'][target].append([str(rel_obj.__dict__['date']), rel_obj.__dict__[targets_dict[target]]])
+
+                r['legends'] = targets
+        elif sub_type == 'total':
+            results = session.query(target_db)\
+                        .order_by(target_db.date)\
+                        .all()
+            if len(results) > 0:
+                bar_targets = ['No1', 'No2', 'No3', 'No4', 'No5', 'No6', 'No7']
+                line_targets = ['No1_mean','No2_mean','No3_mean','No4_mean','No5_mean','No6_mean','No7_mean']
+                targets_dict = {
+                    'No1': 'no1',
+                    'No2': 'no2',
+                    'No3': 'no3',
+                    'No4': 'no4',
+                    'No5': 'no5',
+                    'No6': 'no6',
+                    'No7': 'no7',
+                    'No1_mean': 'no1_mean',
+                    'No2_mean': 'no2_mean',
+                    'No3_mean': 'no3_mean',
+                    'No4_mean': 'no4_mean',
+                    'No5_mean': 'no5_mean',
+                    'No6_mean': 'no6_mean',
+                    'No7_mean': 'no7_mean',
+                }
+
+                for target in bar_targets+line_targets:
+                    r['data'][target] = []
+
+                for rel_obj in results:
+                    r['times'].append(str(rel_obj.__dict__['date']))
+
+                    for bar_target in bar_targets:
+                        r['data'][bar_target].append(rel_obj.__dict__[targets_dict[bar_target]])
+
+                    for line_target in line_targets:
+                        r['data'][line_target].append([str(rel_obj.__dict__['date']), rel_obj.__dict__[targets_dict[line_target]]])
+
+                r['bar_legends']    = bar_targets
+                r['line_legends']   = line_targets
+                r['legends']        = bar_targets+line_targets
+
+        success_code = 1
+    except Exception as e:
+        session.rollback()
+        print('Error: ', e)
+    finally:
+        return jsonify({'success_code': success_code,
+                        'results': r})
