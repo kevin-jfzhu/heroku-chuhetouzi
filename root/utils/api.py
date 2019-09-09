@@ -233,7 +233,7 @@ def check_xwlb_performance(name, sub_type):
                         .all()
             if len(results) > 0:
                 bar_targets = ['No1', 'No2', 'No3', 'No4', 'No5', 'No6', 'No7']
-                line_targets = ['No1_mean','No2_mean','No3_mean','No4_mean','No5_mean','No6_mean','No7_mean']
+                line_targets = ['No1_avg','No2_avg','No3_avg','No4_avg','No5_avg','No6_avg','No7_avg']
                 targets_dict = {
                     'No1': 'no1',
                     'No2': 'no2',
@@ -242,13 +242,13 @@ def check_xwlb_performance(name, sub_type):
                     'No5': 'no5',
                     'No6': 'no6',
                     'No7': 'no7',
-                    'No1_mean': 'no1_mean',
-                    'No2_mean': 'no2_mean',
-                    'No3_mean': 'no3_mean',
-                    'No4_mean': 'no4_mean',
-                    'No5_mean': 'no5_mean',
-                    'No6_mean': 'no6_mean',
-                    'No7_mean': 'no7_mean',
+                    'No1_avg': 'no1_mean',
+                    'No2_avg': 'no2_mean',
+                    'No3_avg': 'no3_mean',
+                    'No4_avg': 'no4_mean',
+                    'No5_avg': 'no5_mean',
+                    'No6_avg': 'no6_mean',
+                    'No7_avg': 'no7_mean',
                 }
 
                 for target in bar_targets+line_targets:
