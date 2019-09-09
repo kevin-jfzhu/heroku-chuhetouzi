@@ -40,6 +40,10 @@ var ctx_performance_bs_ensemble = document.getElementById("大小盘-快集成-�
 var ctx_drawdown_bs_ensemble = document.getElementById("大小盘-快集成-回撤");
 var ctx_correctness_bs_ensemble = document.getElementById("大小盘-快集成-正确率");
 
+var ctx_performance_bs_sentim = document.getElementById("大小盘-资金情绪-净值");
+var ctx_drawdown_bs_sentim = document.getElementById("大小盘-资金情绪-回撤");
+var ctx_correctness_bs_sentim = document.getElementById("大小盘-资金情绪-正确率");
+
 var ctx_performance_bs_slow = document.getElementById("大小盘-慢-净值");
 var ctx_drawdown_bs_slow = document.getElementById("大小盘-慢-回撤");
 var ctx_correctness_bs_slow = document.getElementById("大小盘-慢-正确率");
@@ -373,6 +377,12 @@ $.getJSON('/api/v1/strategy/bigsmall_ensemble').done(function(res) {
                                                           ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
 });
 
+$.getJSON('/api/v1/strategy/bigsmall_sentim').done(function(res) {
+  let performance_data = res.results;
+  charts_bs_sentim = generate_daxiaopan_performance(performance_data, ctx_performance_bs_sentim,
+                                                          ctx_drawdown_bs_sentim, ctx_correctness_bs_sentim);
+});
+
 $.getJSON('/api/v1/strategy/bigsmall_slow').done(function(res) {
   let performance_data = res.results;
   charts_bs_slow = generate_daxiaopan_performance(performance_data, ctx_performance_bs_slow,
@@ -450,7 +460,16 @@ function load_search_value() {
             charts_bs_ensemble = generate_daxiaopan_performance(performance_data, ctx_performance_bs_ensemble,
                                                    ctx_drawdown_bs_ensemble, ctx_correctness_bs_ensemble);
         });
-
+        
+        $.getJSON('/api/v1/strategy/bigsmall_sentim?start_date='+time_string).done(function(res) {
+            let performance_data = res.results;
+            charts_bs_sentim[0].destroy();
+            charts_bs_sentim[1].destroy();
+            charts_bs_sentim[2].destroy();
+            charts_bs_sentim = generate_daxiaopan_performance(performance_data, ctx_performance_bs_sentim,
+                                                   ctx_drawdown_bs_sentim, ctx_correctness_bs_sentim);
+        });
+        
         $.getJSON('/api/v1/strategy/bigsmall_slow?start_date='+time_string).done(function(res) {
             let performance_data = res.results;
             charts_bs_slow[0].destroy();
