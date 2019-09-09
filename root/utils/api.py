@@ -206,7 +206,7 @@ def check_xwlb_performance(name, sub_type):
                         .order_by(target_db.date)\
                         .all()
             if len(results) > 0:
-                targets = ['No1', 'No2', 'No3', 'No4', 'No5', 'No6', 'No7', 'ZZ500_ret_next_week']
+                targets = ['No1', 'No2', 'No3', 'No4', 'No5', 'No6', 'No7', 'ZZ500_return_next_week']
                 targets_dict = {
                     'No1': 'no1_score',
                     'No2': 'no2_score',
@@ -215,7 +215,7 @@ def check_xwlb_performance(name, sub_type):
                     'No5': 'no5_score',
                     'No6': 'no6_score',
                     'No7': 'no7_score',
-                    'ZZ500_ret_next_week': 'return_500_next_week',
+                    'ZZ500_return_next_week': 'return_500_next_week',
                 }
 
                 for target in targets:
