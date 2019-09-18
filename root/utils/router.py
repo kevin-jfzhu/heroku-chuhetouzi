@@ -52,6 +52,14 @@ def products():
     return render_template('products.html')
 
 
+@app.route('/position_detail', methods=['GET'])
+@app.route('/position_detail.html', methods=['GET'])
+def position_detail():
+    g.title = "储贺投资 - 仓位数据"
+    g.tab_position_detail = "active"
+    return render_template('position_detail.html')
+
+
 @app.route('/strategies', methods=['GET'])
 @app.route('/strategies.html', methods=['GET'])
 def strategies():

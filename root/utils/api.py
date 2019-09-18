@@ -1,10 +1,106 @@
 from root.utils import app, redirect, jsonify
 from root.utils.db_setup import *
-from flask import request
+from functools import wraps
+from flask import request, make_response
+from flask import session as flask_session
 import calendar, time, datetime
+import os
+
+"""---------------------------------  Login Decorator ---------------------------------"""
+app.config['SECRET_KEY'] = os.urandom(24)
+def login_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        cur_cookies = request.cookies
+        if cur_cookies.get('name') not in flask_session:
+            return jsonify({'success_code': 0, 'results': {}})
+        return func(*args, **kwargs)
+    return decorated_function
 
 
 """---------------------------------  Interactive API Definition ---------------------------------"""
+# 登陆相关API
+@app.route('/user/login', methods=['GET', 'POST'])
+def user_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        user = session.query(ChtzUser)\
+                .filter_by(username=username)\
+                .first()
+        if user is not None and request.form['password'] == user.password:
+            response = make_response(jsonify({'success_code': 1, 'results': {}}))
+            response.set_cookie('name', username, expires=datetime.datetime.today() + datetime.timedelta(days=30))
+            flask_session[username] = 1
+            return response
+    return jsonify({'success_code': 0, 'results': {}})
+
+
+# 仓位数据相关API
+@app.route('/api/v1/performance/product/<string:product_name>/detail', methods=['POST', 'GET'])
+@login_required
+def check_product_position_detail(product_name):
+    success_code = 0
+    #strategies = ['bigsmall_fast', 'bigsmall_vol', 'bigsmall_ensemble', 'bigsmall_sentim', 'index-timing_general', 'index-timing_ensemble', 'flow-sentim_low']
+    strategy_map = {
+            'bigsmall_fast': r'大小盘(快)',
+            'bigsmall_ensemble': r'大小盘(集成)',
+            'bigsmall_vol': r'大小盘(带量)',
+            'bigsmall_slow': r'大小盘(慢)',
+            'bigsmall_sentim': r'大小盘(资金情绪)',
+            'index-timing_general': r'指数择时',
+            'index-timing_ensemble': r'指数择时(集成)',
+            'flow-sentim_mid': r'资金情绪(中波)',
+            'flow-sentim_low': r'资金情绪(低波)'
+        }
+    r = {
+        'dates': [],
+        'unit_values': [],
+        'series_dict': {}
+    }
+    try:
+        today = datetime.datetime.today().strftime('%Y-%m-%d')
+        if request.args.get('start_date') is None:
+            start_date = (datetime.datetime.today() - datetime.timedelta(days=365)).strftime('%Y-%m-%d')
+        else:
+            start_date = request.args.get('start_date')
+
+        position_results = session.query(ProductPositionDetail)\
+                        .filter(ProductPositionDetail.date >= start_date) \
+                        .filter(ProductPositionDetail.date < today) \
+                        .filter(ProductPositionDetail.__dict__[product_name].isnot(None)) \
+                        .order_by(ProductPositionDetail.date)\
+                        .all()
+
+        if position_results:
+            start_date = position_results[0].date
+            product_results = session.query(ProductPerformance)\
+                        .filter_by(product_name=product_name) \
+                        .filter(ProductPerformance.date >= start_date) \
+                        .filter(ProductPerformance.date < today) \
+                        .order_by(ProductPerformance.date) \
+                        .all()
+                        
+            temp_pd, temp_uv = position_results[0].__dict__[product_name].split(';')
+            chg_fix = float(product_results[0].unit_value)-float(temp_uv.split(':')[1])
+            for pd in temp_pd.split(','):
+                strategy, val = pd.split(':')
+                r['series_dict'][strategy_map[strategy]] = []
+            for item in position_results:
+                position_detail_set_str, unit_value_str = item.__dict__[product_name].split(';')
+                r['dates'].append(item.date.strftime('%Y-%m-%d'))
+                r['unit_values'].append([item.date.strftime('%Y-%m-%d'), float(unit_value_str.split(':')[1])+chg_fix])
+                for position_detail_str in position_detail_set_str.split(','):
+                    strategy, capital_percent_str = position_detail_str.split(':')
+                    r['series_dict'][strategy_map[strategy]].append(float(capital_percent_str)*100)
+
+        success_code = 1
+    except Exception as e:
+        session.rollback()
+        print('Error: ', e)
+    finally:
+        return jsonify({'success_code': success_code,
+                        'results': r
+                        })
 
 
 # 产品净值相关API

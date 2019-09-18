@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">合规提示</h1>
+          <p class="mb-4">本页面访问者承诺符合如下特定合格投资者之条件：根据《私募投资基金募集行为管理办法》之规定，本人是具有相应风险识别能力和风险承担能力，投资于单只私募基金的金额不低于100万元，且个人资产不低于300万元或者最近三年个人年均收入不低于50万元的特定投资者。</p>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-xl-12">
+
+              <!-- Area Chart -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary" style="display: inline">储贺1号</h6>
+                  <button class="btn btn-primary" id="chuheyihao_position_detail_btn" style="display: inline;float: right">持仓明细</button>
+                </div>         
+                <div class="card-body">
+                  <div class="chart-area" style="height: 450px">
+                    <div id="储贺1号" style="height: 450px;width: 100%"></div>
+                  </div>
+                </div>
+                <div class="card-body" id="chuheyihao-detail" style="display: none">
+                  <hr>
+                  <div id="储贺1号持仓明细" style="height: 450px;width: 100%"></div>
+                </div>
+                <hr><div style="padding: 10px">风险提示：以上内容仅供参考，不保证100%准确。作者不应被视为游说任何人执行任何交易。投资有风险，交易需谨慎。</div>
+              </div>
+
+              <!-- Area Chart -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary" style="display: inline">储贺量化1号</h6>
+                  <button class="btn btn-primary" id="lianghuayihao_position_detail_btn" style="display: inline;float: right;">持仓明细</button>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area" style="height: 450px">
+                    <div id="储贺量化1号" style="height: 450px;width: 100%"></div>
+                  </div>
+                </div>
+                <div class="card-body" id="lianghuayihao-detail" style="display: none">
+                  <hr>
+                  <div id="储贺量化1号持仓明细" style="height: 450px;width: 100%"></div>
+                </div>
+                <hr><div style="padding: 10px">风险提示：以上内容仅供参考，不保证100%准确。作者不应被视为游说任何人执行任何交易。投资有风险，交易需谨慎。</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+    <!-- /.container-fluid -->
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title" style="text-align:center; width: 100%">登陆</h4>
+                  <button type="button" class="close text-right" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                      <div class="form-group">
+                          <label for="">用户名</label>
+                          <input class="form-control"  id="login_username" type="text" placeholder="" name="username"></input>
+                      </div>
+                      <div class="form-group">
+                          <label for="">密码</label>
+                          <input class="form-control" id="login_password" type="password" placeholder="" name="password"></input>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <div class="text-right">
+                      <button class="btn btn-primary" id="login_submit">登录</button>
+                      <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                  </div>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+{% endblock %}
+
+
+{% block custom_js_scripts %}
+    <!-- Page level custom scripts -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script src="static/js/demo/position_detail.js"></script>
+
+
+
+{% endblock %}
