@@ -32,6 +32,17 @@ var chart_lianghuayihao;
 var chart_chuheyihao_position_detail;
 var chart_lianghuayihao_position_detail;
 
+var color_map = {
+    '大小盘(快)': '#cc1d4d',
+    '大小盘(带量)': '#eb586d',
+    '大小盘(集成)': '#e4846c',
+    '大小盘(慢)': '#f89fa1',
+    '指数择时': '#19548e',
+    '指数择时(集成)': '#0282c9',
+    '资金情绪(低波)': '#f1a308',
+}
+
+
 function generate_position_detail(position_detail, ctx_position_detail, chart_product) {
     var strategies = ['大小盘(快)','大小盘(带量)','大小盘(集成)','大小盘(慢)','指数择时','指数择时(集成)','资金情绪(低波)'];
     var series_data = [];
@@ -44,6 +55,7 @@ function generate_position_detail(position_detail, ctx_position_detail, chart_pr
                 type:'line',
                 stack: '总量',
                 areaStyle: {},
+                color: color_map[strategy],
                 data: position_detail.series_dict[strategy]
             })
         }
@@ -75,8 +87,10 @@ function generate_position_detail(position_detail, ctx_position_detail, chart_pr
                 let listItem = '';
                 for (var i in params) {
                     list.push(
-                        '<i style="display: inline-block;width: 10px;height: 10px;background: '+params[i].color+';margin-right: 5px;border-radius: 50%;}"></i><span style="display:inline-block;">' +
-                        params[i].seriesName +'</span>&nbsp&nbsp：' +params[i].value.toFixed(2)+'%')
+                        '<i style="display: inline-block;width: 10px;height: 10px;background: '+color_map[params[i].seriesName]+';margin-right: 5px;border-radius: 50%;}"></i><span style="display:inline-block;">' +
+                        params[i].seriesName +'</span>&nbsp&nbsp：' +params[i].value.toFixed(2)+'%');
+                    console.log(params[i].seriesName, params[i].color);
+
                 }
                 listItem = list.join('<br>');
                 return '<div class="showBox">' + listItem + '</div>'
@@ -299,8 +313,10 @@ function load_product_detail(product_name){
               chart_lianghuayihao_position_detail = generate_position_detail(lianghuayihao_position_detail, ctx_lianghuayihao_position_detail, chart_lianghuayihao);
               window.addEventListener("resize", () => { chart_lianghuayihao_position_detail.resize();});
             }
-        }else{
+        }else if(res.success_code==0){
             $("#login_modal").modal("show");
+        }else if(res.success_code==-1){
+            toastr.warning('数据获取失败，请重试！');
         }
     })
 
@@ -336,7 +352,7 @@ var login_fail = document.getElementById('login_fail')
 function login_post()
 {
     $.post('/user/login', {"username": login_username.value, "password": login_password.value}, function(res){
-        if(res.success_code!=0){
+        if(res.success_code==1){
             toastr.success('登陆成功');
             $("#login_modal").modal('hide');
             chuheyihao_position_detail_btn.click();

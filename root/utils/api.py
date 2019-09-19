@@ -95,6 +95,7 @@ def check_product_position_detail(product_name):
 
         success_code = 1
     except Exception as e:
+        success_code = -1
         session.rollback()
         print('Error: ', e)
     finally:
