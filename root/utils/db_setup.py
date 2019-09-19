@@ -10,6 +10,29 @@ from sqlalchemy.orm import sessionmaker
 Base = declarative_base()
 
 """                Header ends here                 """
+class ChtzUser(Base):
+    __tablename__ = 'chtz_user'
+
+    uid = Column(Integer, primary_key=True)
+    uuid = Column(String, nullable=False)
+    username = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    role = Column(Integer, nullable=False)
+    status = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+class ProductPositionDetail(Base):
+    __tablename__ = 'product_position_detail'
+
+    date = Column(Date, primary_key=True)
+    chuheyihao = Column(String, nullable=True)
+    lianghuayihao = Column(String, nullable=True)
+
+    def __repr__(self):
+        return str(self.__dict__)
 
 
 class ProductPerformance(Base):
